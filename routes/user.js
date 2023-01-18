@@ -2,8 +2,7 @@ const express = require('express')
 const router = express.Router()
 const userController = require('../controllers/userController')
 
-router.get('/', userController.index)
-router.get('/create', userController.create)
-router.post('/', userController.store)
+router.get("/", UserController.findAll);
+router.get("/:id", UserController.findById);
 
-module.exports = router
+module.exports = router;
