@@ -42,7 +42,7 @@ User.create = function (newEmp, result) {
 };
 
 User.delete = function (id, result) {
-  mysql.query("DELETE FROM user WHERE user_id = ?", [id], function (err, res) {
+  mysql.query("DELETE FROM Users WHERE user_id = ?", [id], function (err, res) {
     if (err) {
       console.log("error: ", err);
       result(null, err);
@@ -54,8 +54,8 @@ User.delete = function (id, result) {
 
 User.update = function (id, user, result) {
   mysql.query(
-    "UPDATE user SET user_id=?,user_name=?,user_email=?,user_password=? WHERE id = ?",
-    [user.user_id, user.user_name, user.user_email, user.user_password, id],
+    "UPDATE Users SET user_id=?,name=?,password=? WHERE id = ?",
+    [user.user_id, user._name, user.password, id],
     function (err, res) {
       if (err) {
         console.log("error: ", err);
