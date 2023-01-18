@@ -13,7 +13,7 @@ exports.login = function (req, res) {
         if (req.body.password === user.password) {
           res.status(200).send({ message: "Successfully logged in" });
         } else {
-          res.status(401).send({ error: true, message: "Invalid username or password" });
+          res.status(401).send({ error: true, message: "Invalid username or password Form password" });
         }
       }
     });
