@@ -5,7 +5,7 @@ let User = function (user) {
   this.name = user.name;
   this.password = user.password;
 };
-// 모든 사용자 검색
+
 User.findAll = function (result) {
   mysql.query("Select * from Users", function (err, res) {
     if (err) {
@@ -17,7 +17,7 @@ User.findAll = function (result) {
     }
   });
 };
-// 특정 사용자 검색
+
 User.findById = function (id, result) {
   mysql.query("Select * from Users where user_id = ? ", id, function (err, res) {
     if (err) {
