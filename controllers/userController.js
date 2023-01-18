@@ -2,36 +2,36 @@ const Userdata = require("../models/userModel")
 
 module.exports = {
   index: function(req, res) {
-    Biodata.get(req.con, function(err, rows) {
-      res.render("biodata/index", { data: rows })
+    Userdata.get(req.con, function(err, rows) {
+      res.render("userdata/index", { data: rows })
     })
   },
 
   create: function(req, res) {
-    res.render("biodata/create")
+    res.render("userdata/create")
   },
 
   store: function(req, res) {
     Biodata.create(req.con, req.body, function(err) {
-      res.redirect("/biodata")
+      res.redirect("/userdata")
     })
   },
 
-  edit: function(req, res) {
-    Biodata.getById(req.con, req.params.id, function(err, rows) {
-      res.render("biodata/edit", { data: rows[0] })
-    })
-  },
+//   edit: function(req, res) {
+//     Biodata.getById(req.con, req.params.id, function(err, rows) {
+//       res.render("biodata/edit", { data: rows[0] })
+//     })
+//   },
 
-  update: function(req, res) {
-    Biodata.update(req.con, req.body, req.params.id, function(err) {
-      res.redirect("/biodata")
-    })
-  },
+//   update: function(req, res) {
+//     Biodata.update(req.con, req.body, req.params.id, function(err) {
+//       res.redirect("/biodata")
+//     })
+//   },
 
-  destroy: function(req, res) {
-    Biodata.destroy(req.con, req.params.id, function(err) {
-      res.redirect("/biodata")
-    })
-  }
+//   destroy: function(req, res) {
+//     Biodata.destroy(req.con, req.params.id, function(err) {
+//       res.redirect("/biodata")
+//     })
+//   }
 }
