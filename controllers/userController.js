@@ -1,37 +1,17 @@
-const Userdata = require("../models/userModel")
+const User = require("../models/userModel")
 
-module.exports = {
-  index: function(req, res) {
-    Userdata.get(req.con, function(err, rows) {
-      res.render("userdata/index", { data: rows })
-    })
-  },
+exports.findAll = function (req, res) {
+  User.findAll(function (err, user) {
+    console.log("controller");
+    if (err) res.send(err);
+    console.log("res", user);
+    res.send(user);
+  });
+};
 
-  create: function(req, res) {
-    res.render("userdata/create")
-  },
-
-  store: function(req, res) {
-    Biodata.create(req.con, req.body, function(err) {
-      res.redirect("/userdata")
-    })
-  },
-
-//   edit: function(req, res) {
-//     Biodata.getById(req.con, req.params.id, function(err, rows) {
-//       res.render("biodata/edit", { data: rows[0] })
-//     })
-//   },
-
-//   update: function(req, res) {
-//     Biodata.update(req.con, req.body, req.params.id, function(err) {
-//       res.redirect("/biodata")
-//     })
-//   },
-
-//   destroy: function(req, res) {
-//     Biodata.destroy(req.con, req.params.id, function(err) {
-//       res.redirect("/biodata")
-//     })
-//   }
-}
+exports.findById = function (req, res) {
+  User.findById(req.params.id, function (err, user) {
+    if (err) res.send(err);
+    res.json(user);
+  });
+};
