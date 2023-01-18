@@ -1,27 +1,23 @@
 const express = require("express")
-const cors = require('cors')
 const app = express()
+const cors = require('cors')
 const bodyParser = require('body-parser')
-const connection = require("./config/db.js")
+// const connection = require("./config/db.js")
 
 app.use(bodyParser.json())
 app.use(body.bodyParser.urlencode({extended:true}))
 app.use(cors())
 
-// starting server
+const UserRoute = require("./routes/user.routes");
+
+app.use("/api/user", UserRoute);
+
+app.get("/", (req, res) => {
+  res.json({
+    success: true,
+  });
+});
+
 app.listen(3000, function() {
   console.log("server listening on port 3000")
 })
-
-// app.get('/',(req,res) =>{
-//   res.send('hello world')
-// })
-
-// app.get('/user', (req,res)=>{
-//   connection.query(
-//     'SELECT * FROM Users',
-//     function(err,result,fields){
-//       res.send(result)
-//     }
-//   )
-// })
