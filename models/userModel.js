@@ -29,4 +29,16 @@ User.findById = function (id, result) {
   });
 };
 
+User.create = function (newEmp, result) {
+  mysql.query("INSERT INTO Users set ?", newEmp, function (err, res) {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+    } else {
+      console.log(res.insertId);
+      result(null, res.insertId);
+    }
+  });
+};
+
 module.exports = User;
