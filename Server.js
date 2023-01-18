@@ -5,7 +5,7 @@ const bodyParser = require('body-parser')
 // const connection = require("./config/db.js")
 
 app.use(bodyParser.json())
-app.use(bodyParser.urlencode({extended:true}))
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cors())
 
 const UserRoute = require("./routes/user.routes");
