@@ -8,7 +8,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cors())
 
-const UserRoute = require("./routes/user.routes");
+const UserRoute = require("./routes/user");
 
 app.use("/api/user", UserRoute);
 
