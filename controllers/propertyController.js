@@ -32,3 +32,17 @@ exports.create = function (req, res) {
     });
   }
 };
+
+exports.delete = function (req, res) {
+    Property.delete(req.params.property_id, function (err, property) {
+    if (err) res.send(err);
+    res.json({ message: "Property successfully deleted" });
+    });
+};
+    
+exports.update = function (req, res) {
+    Property.update(req.params.property_id, new Property(req.body), function (err, property) {
+    if (err) res.send(err);
+    res.json({ message: "Property successfully updated" });
+    });
+};
