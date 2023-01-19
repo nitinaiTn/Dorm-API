@@ -9,10 +9,12 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cors())
 
 const loginRoute = require('./routes/loginRoute')
-const UserRoute = require("./routes/userRoute");
+const UserRoute = require("./routes/userRoute")
+const MaintenanceRoute = require('./routes/maintenanceRoute')
 
 app.use('/api/login', loginRoute)
-app.use("/api/user", UserRoute);
+app.use("/api/user", UserRoute)
+app.user('/api/maintenance', MaintenanceRoute)
 
 app.get("/", (req, res) => {
   res.json({
