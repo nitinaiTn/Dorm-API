@@ -14,7 +14,7 @@ const MaintenanceRoute = require('./routes/maintenanceRoute')
 
 app.use('/api/login', loginRoute)
 app.use("/api/user", UserRoute)
-app.user('/api/maintenance', MaintenanceRoute)
+app.use('/api/maintenance', MaintenanceRoute)
 
 app.get("/", (req, res) => {
   res.json({
