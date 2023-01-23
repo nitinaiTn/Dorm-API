@@ -1,3 +1,4 @@
+// this code is export controller pattern
 const User = require("../models/userModel")
 
 exports.findAll = function (req, res) {
