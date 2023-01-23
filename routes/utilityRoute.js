@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const utilityConsumptionController = require('../controllers/utilityConsumptionController')
+const utilityConsumptionController = require('../controllers/utilityController')
 
 router.get('/', utilityConsumptionController.findAll)
 router.get('/:lease_id', utilityConsumptionController.findByLeaseId)
