@@ -2,7 +2,7 @@
 const User = require("../models/userModel")
 
 const userController = {
-  findAll: function(req, res) {
+  findAll: (req, res) => {
     User.findAll(function (err, user) {
       console.log("controller");
       if (err) res.send(err);
