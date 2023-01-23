@@ -1,4 +1,4 @@
-const UtilityConsumption = require("../models/utilityConsumptionModel")
+const UtilityConsumption = require("../models/utilityModel")
 
 exports.findAll = function (req, res) {
   UtilityConsumption.findAll(function (err, utilityConsumption) {
@@ -41,7 +41,7 @@ exports.delete = function (req, res) {
     });
     };
 
-    exports.update = function (req, res) {
+exports.update = function (req, res) {
         UtilityConsumption.update(req.params.consumption_id, new UtilityConsumption(req.body), function (err, utilityConsumption) {
         if (err) res.send(err);
         res.json({ message: "Utility consumption successfully updated" });
