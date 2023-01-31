@@ -68,7 +68,19 @@ Post.create = function (newPost, result) {
     }
     );
     };
-    
+
+Post.testJoinPost = function (user_id, post_title, post_text, date_created, result) {
+  mysql.query("insert into Posts (user_id, post_title, post_text, date_created) values (?,?,?,?)",[user_id, post_title, post_text, date_created], function (err, res) {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+    } else {
+      console.log(res.insertId);
+      result(null, res.insertId);
+    }
+  });
+};
+
 module.exports = Post;
     
     
