@@ -2,7 +2,7 @@ const express = require("express")
 const app = express()
 const cors = require('cors')
 const bodyParser = require('body-parser')
-
+const mysql = require('./config/db')
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -26,11 +26,22 @@ app.use('/api/property', PropertyRoute)
 app.use('/api/post', PostRoute)
 app.use('/api/comment', CommentRoute)
 
+
+
 app.get("/", (req, res) => {
   res.json({
     success: true,
   });
 });
+
+app.get("/testJoin", (req, res)=>{
+  mysql.query(
+    "SELECT i.id, i.name, i.category_id, c.name AS category_name FROM items i LEFT JOIN categories c ON i.category_id = c.id",
+    function(err, results, fields) {
+      console.log(results); // results contains rows returned by server
+    }
+  );
+})
 
 app.listen(3000, function() {
   console.log("server listening on port 3000")
