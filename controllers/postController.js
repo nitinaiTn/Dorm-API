@@ -53,7 +53,7 @@ exports.testJoinPost = function (req, res) {
   let post_title = req.body.post_title
   let post_text = req.body.post_text
   let date_created = req.body.date_created
-  
+
     if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
       res
       .status(400)
@@ -66,4 +66,13 @@ exports.testJoinPost = function (req, res) {
       });
     });
   }
+};
+
+exports.getJoin = function (req, res) {
+  Post.getJoin(function (err, post) {
+    console.log("controller");
+    if (err) res.send(err);
+    console.log("res", post);
+    res.send(post);
+  });
 };

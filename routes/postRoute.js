@@ -8,5 +8,7 @@ router.post('/', postController.create)
 router.put('/:post_id', postController.update)
 router.delete('/:post_id', postController.delete)
 router.post('/testJoinPost', postController.testJoinPost)
+router.get('/getJoin', postController.getJoin)
+
 
 module.exports = router
