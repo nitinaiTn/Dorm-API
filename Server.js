@@ -8,8 +8,8 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cors())
 
-// const loginRoute = require('./routes/loginRoute')
-// const UserRoute = require("./routes/userRoute")
+const loginRoute = require('./routes/loginRoute')
+const UserRoute = require("./routes/userRoute")
 // const MaintenanceRoute = require('./routes/maintenanceRoute')
 // const LeaseRoute = require('./routes/leaseRoute')
 const UtilityRoute = require('./routes/utilityRoute')
@@ -23,8 +23,8 @@ app.get("/", (req, res) => {
   });
 });
 
-// app.use('/api/login', loginRoute)
-// app.use("/api/user", UserRoute)
+app.use('/api/login', loginRoute)
+app.use("/api/user", UserRoute)
 // app.use('/api/maintenance', MaintenanceRoute)
 // app.use('/api/lease', LeaseRoute)
 app.use('/api/utility', UtilityRoute)
