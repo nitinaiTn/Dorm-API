@@ -18,7 +18,7 @@ exports.findByUserId = function (req, res) {
     
     exports.create = function (req, res) {
     const new_post = new Post(req.body);
-    res.send({message: new_post})
+    res.send({new_post})
     //handles null error
     if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
     res
