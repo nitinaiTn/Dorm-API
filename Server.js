@@ -4,13 +4,16 @@ const bodyParser = require('body-parser')
 const mysql = require('./config/db')
 
 const app = express()
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
+
 app.use(cors({
   origin: "http://localhost:3000",
   methods: ["GET", "HEAD", "POST"],
   allowedHeaders: ["Content-Type"]
 }))
+
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
+
 
 const loginRoute = require('./routes/loginRoute')
 const UserRoute = require("./routes/userRoute")
