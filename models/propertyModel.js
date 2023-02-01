@@ -55,20 +55,19 @@ Property.create = function (owner_id, address, number_of_floors, number_of_rooms
     });
     };
     
-    Property.update = function (property_id, property, result) {
-    mysql.query(
-    "UPDATE Properties SET owner_id=?,address=?,number_of_floors=?,number_of_rooms=? WHERE property_id = ?",
+Property.update = function (property_id, property, result) {
+  mysql.query("UPDATATE Properties SET owner_id=?,address=?,number_of_floors=?,number_of_rooms=? WHERE property_id = ?",
     [property.owner_id, property.address, property.number_of_floors, property.number_of_rooms, property_id],
-    function (err, res) {
+  function (err, res) {
     if (err) {
-    console.log("error: ", err);
-    result(null, err);
-    } else {
-    result(null, res);
+      console.log("error: ", err);
+      result(null, err);
     }
+    else{
+      result(null, res);
     }
-    );
-    };
+  });
+};
     
 module.exports = Property;
     
