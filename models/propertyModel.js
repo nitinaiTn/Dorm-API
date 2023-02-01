@@ -31,16 +31,17 @@ Property.findByOwnerId = function (owner_id, result) {
   });
 };
 
-Property.create = function (newProperty, result) {mysql.query("INSERT INTO Properties set ?", newProperty, function (err, res) {
+Property.create = function (newProperty, result) {
+  mysql.query("insert into Properties (owner_id, address, number_of_floors, number_of_rooms) values ?", newProperty, function (err, res) {
     if (err) {
-    console.log("error: ", err);
-    result(err, null);
+      console.log("error: ", err);
+      result(err, null);
     } else {
-    console.log(res.insertId);
-    result(null, res.insertId);
+      console.log(res.insertId);
+      result(null, res.insertId);
     }
-    });
-    };
+  });
+};
     
     Property.delete = function (property_id, result) {
     mysql.query("DELETE FROM Properties WHERE property_id = ?", [property_id], function (err, res) {
