@@ -32,7 +32,8 @@ Property.findByOwnerId = function (owner_id, result) {
 };
 
 Property.create = function (newProperty, result) {
-  mysql.query("insert into Properties (owner_id, address, number_of_floors, number_of_rooms) values ?", newProperty, function (err, res) {
+  mysql.query("insert into Properties (owner_id, address, number_of_floors, number_of_rooms) values (?,?,?,?)", [owner_id, address, number_of_floors, number_of_rooms]
+  , function (err, res) {
     if (err) {
       console.log("error: ", err);
       result(err, null);
