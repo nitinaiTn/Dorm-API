@@ -34,15 +34,6 @@ app.get("/", (req, res) => {
   });
 });
 
-app.get("/testJoin", (req, res)=>{
-  mysql.query(
-    "SELECT i.id, i.name, i.category_id, c.name AS category_name FROM items i LEFT JOIN categories c ON i.category_id = c.id",
-    function(err, results, fields) {
-      console.log(results); // results contains rows returned by server
-    }
-  );
-})
-
 app.listen(process.env.PORT || 3000, function() {
   console.log("server listening on port 3000")
 })
