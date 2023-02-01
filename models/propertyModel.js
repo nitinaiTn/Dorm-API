@@ -56,7 +56,7 @@ Property.create = function (owner_id, address, number_of_floors, number_of_rooms
     };
     
 Property.update = function (property_id, property, result) {
-  mysql.query("UPDATATE Properties SET owner_id=?,address=?,number_of_floors=?,number_of_rooms=? WHERE property_id = ?",
+  mysql.query("update Properties set owner_id=?,address=?,number_of_floors=?,number_of_rooms=? where property_id = ?",
     [property.owner_id, property.address, property.number_of_floors, property.number_of_rooms, property_id],
   function (err, res) {
     if (err) {
