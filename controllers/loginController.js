@@ -8,6 +8,7 @@ exports.login = function (req, res) {
   } else {
     
     Login.findByEmail(req.body.username,function (err, user) {
+      console.log(req.body.username)
       if (err) {
         res.status(500).send({ error: true, message: "Error retrieving user" });
       } else if (!user) {
