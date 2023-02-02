@@ -61,6 +61,7 @@ Post.update = function (post_id, user_id, post_title, post_text, date_created, r
         console.log("error: ", err);
         result(null, err);}
       else {
+        console.log(res.body)
         result(null, res);
       }
     }
