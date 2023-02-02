@@ -55,7 +55,7 @@ Post.create = function (newPost, result) {
     };
     
 Post.update = function (post_id, post, result) {
-  res.send(post)
+  res.json(post)
   mysql.query("UPDATE Posts SET user_id=?,post_title=?,post_text=?,date_created=? WHERE post_id = ?",
     [post.user_id, post.post_title, post.post_text, post.date_created, post_id], function (err, res) {
       if (err) {
