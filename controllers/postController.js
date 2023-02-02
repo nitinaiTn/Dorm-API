@@ -42,11 +42,12 @@ exports.findByUserId = function (req, res) {
     });
     };
     
-    exports.update = function (req, res) {
-    Post.update(req.params.post_id, new Post(req.body), function (err, post) {
+exports.update = function (req, res) {
+  console.log(req.body)
+  Post.update(req.params.post_id, new Post(req.body), function (err, post) {
     if (err) res.send(err);
     res.json({ message: "Post successfully updated" });
-    })};
+})};
 
 exports.testJoinPost = function (req, res) {
   // const new_post = new Post(req.body);
