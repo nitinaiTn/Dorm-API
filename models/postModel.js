@@ -61,7 +61,8 @@ Post.update = function (post_id, post, result) {
         console.log("error: ", err);
         result(null, err);}
       else {
-      result(null, res);
+        console.log("succes form model")
+        result(null, res);
       }
     }
   );
