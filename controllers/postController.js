@@ -12,9 +12,9 @@ exports.findAll = function (req, res) {
 exports.findByUserId = function (req, res) {
   Post.findByUserId(req.params.user_id, function (err, post) {
     if (err) res.send(err);
-    res.json(post);
-    });
-    };
+    res.send(post);
+  });
+};
     
     exports.create = function (req, res) {
     const new_post = new Post(req.body);
