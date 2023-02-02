@@ -54,20 +54,18 @@ Post.create = function (newPost, result) {
     });
     };
     
-    Post.update = function (post_id, post, result) {
-    mysql.query(
-    "UPDATE Posts SET user_id=?,post_title=?,post_text=?,date_created=? WHERE post_id = ?",
-    [post.user_id, post.post_title, post.post_text, post.date_created, post_id],
-    function (err, res) {
-    if (err) {
-    console.log("error: ", err);
-    result(null, err);
-    } else {
-    result(null, res);
+Post.update = function (post_id, post, result) {
+  mysql.query("UPDATE Posts SET user_id=?,post_title=?,post_text=?,date_created=? WHERE post_id = ?",
+    [post.user_id, post.post_title, post.post_text, post.date_created, post_id], function (err, res) {
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);}
+      else {
+      result(null, res);
+      }
     }
-    }
-    );
-    };
+  );
+};
 
 Post.getJoin = function (result) {
     mysql.query("select p.post_title, p.post_text, u.name from Posts p join Users u on p.user_id = u.user_id", function (err, res) {
