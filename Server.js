@@ -6,7 +6,7 @@ const mysql = require('./config/db')
 const app = express()
 
 app.use(cors({
-  origin: "http://localhost:3000",
+  origin: "https://dorm-frontend.vercel.app",
   methods: ["GET", "HEAD", "POST"],
   allowedHeaders: ["Content-Type"],
   credentials: true,
