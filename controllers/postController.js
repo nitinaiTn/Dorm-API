@@ -43,7 +43,7 @@ exports.findByUserId = function (req, res) {
     };
     
 exports.update = function (req, res) {
-  Post.update(req.params.post_id, new Post(req.body), function (err, post) {
+  Post.update(req.params.post_id, req.params.user_id, req.params.post_title, req.params.post_text, req.params.date_created, function (err, post) {
     if (err) res.send(err);
     res.json({ message: "Post successfully updated" });
 })};
