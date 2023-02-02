@@ -45,7 +45,7 @@ exports.findByUserId = function (req, res) {
 exports.update = function (req, res) {
   Post.update(req.params.post_id, req.params.user_id, req.params.post_title, req.params.post_text, req.params.date_created, function (err, post) {
     if (err) res.send(err);
-    res.json({ message: "Post successfully updated" });
+    res.json({ message: "Post successfully updated", post });
 })};
 
 exports.testJoinPost = function (req, res) {
