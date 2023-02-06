@@ -31,18 +31,16 @@ Property.findByOwnerId = function (owner_id, result) {
   });
 };
 
-Property.create = function (owner_id, address, number_of_floors, number_of_rooms, result) {
-  mysql.query("insert into Properties (owner_id, address, number_of_floors, number_of_rooms) values (?,?,?,?)", [owner_id, address, number_of_floors, number_of_rooms]
-  , function (err, res) {
+Property.create = function (newProperty, result) {mysql.query("INSERT INTO Properties set ?", newProperty, function (err, res) {
     if (err) {
-      console.log("error: ", err);
-      result(err, null);
+    console.log("error: ", err);
+    result(err, null);
     } else {
-      console.log(res.insertId);
-      result(null, res.insertId);
+    console.log(res.insertId);
+    result(null, res.insertId);
     }
-  });
-};
+    });
+    };
     
     Property.delete = function (property_id, result) {
     mysql.query("DELETE FROM Properties WHERE property_id = ?", [property_id], function (err, res) {
@@ -55,19 +53,20 @@ Property.create = function (owner_id, address, number_of_floors, number_of_rooms
     });
     };
     
-Property.update = function (property_id, property, result) {
-  mysql.query("update Properties set owner_id=?,address=?,number_of_floors=?,number_of_rooms=? where property_id = ?",
+    Property.update = function (property_id, property, result) {
+    mysql.query(
+    "UPDATE Properties SET owner_id=?,address=?,number_of_floors=?,number_of_rooms=? WHERE property_id = ?",
     [property.owner_id, property.address, property.number_of_floors, property.number_of_rooms, property_id],
-  function (err, res) {
+    function (err, res) {
     if (err) {
-      console.log("error: ", err);
-      result(null, err);
+    console.log("error: ", err);
+    result(null, err);
+    } else {
+    result(null, res);
     }
-    else{
-      result(null, res);
     }
-  });
-};
+    );
+    };
     
 module.exports = Property;
     

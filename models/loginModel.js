@@ -6,7 +6,7 @@ let Login = function (user) {
 };
 
 Login.findByEmail = function (username, result) {
-  mysql.query("select user_id, username, password, role, name, lastname, token, room_id, property_id from Users where username = ?", username, function (err, res) {
+  mysql.query("SELECT * FROM Users WHERE username = ?", username, function (err, res) {
     if (err) {
       console.log("error: ", err);
       result(err, null);
