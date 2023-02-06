@@ -17,24 +17,24 @@ exports.findByUserId = function (req, res) {
   });
 };
 
-exports.create = function (req, res) {
-  const new_post = new Post(req.body);
+// exports.create = function (req, res) {
+//   const new_post = new Post(req.body);
 
-  //handles null error
-  if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
-    res
-      .status(400)
-      .send({ error: true, message: "Please provide all required field" });
-  } else {
-    res.send({ new_post })
-    Post.create(new_post, function (err, post) {
-      if (err) res.send(err);
-      res.json({
-        data: post,
-      });
-    });
-  }
-};
+//   //handles null error
+//   if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
+//     res
+//       .status(400)
+//       .send({ error: true, message: "Please provide all required field" });
+//   } else {
+//     res.send({ new_post })
+//     Post.create(new_post, function (err, post) {
+//       if (err) res.send(err);
+//       res.json({
+//         data: post,
+//       });
+//     });
+//   }
+// };
 
 exports.delete = function (req, res) {
   Post.delete(req.params.post_id, function (err, post) {
@@ -50,7 +50,7 @@ exports.update = function (req, res) {
   })
 };
 
-exports.testJoinPost = function (req, res) {
+exports.create = function (req, res) {
   // const new_post = new Post(req.body);
   //     //handles null error
   let user_id = req.body.user_id
