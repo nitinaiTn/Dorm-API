@@ -69,7 +69,7 @@ Post.update = function (post_id, user_id, post_title, post_text, date_created, r
 };
 
 Post.getJoin = function (result) {
-    mysql.query("select p.post_id, p.post_user_id ,p.post_title, p.post_text, p.date_created, u.name from Posts p join Users u on p.user_id = u.user_id", function (err, res) {
+    mysql.query("select p.post_id, p.user_id ,p.post_title, p.post_text, p.date_created, u.name from Posts p join Users u on p.user_id = u.user_id", function (err, res) {
       if (err) {
         console.log("error: ", err);
         result(null, err);
