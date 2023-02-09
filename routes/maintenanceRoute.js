@@ -1,6 +1,6 @@
 const express = require("express")
 const router = express.Router()
-const maintenanceController = require("../controllers/MaintenanceController")
+const maintenanceController = require("../controllers/maintenanceController")
 
 // Get all maintenance requests
 router.get("/", maintenanceController.findAll);
