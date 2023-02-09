@@ -39,7 +39,7 @@ app.use('/api/lease', LeaseRoute)
 app.use('/api/utility', UtilityRoute)
 app.use('/api/property', PropertyRoute)
 app.use('/api/post', PostRoute)
-app.use('/api/post/getJoin', postController.findAll)
+app.get('/api/post/getJoin', postController.findAll)
 app.use('/api/comment', CommentRoute)
 
 app.listen(process.env.PORT || 3000, function() {
