@@ -11,7 +11,7 @@ let MaintenanceRequest = function (request) {
 };
 
 MaintenanceRequest.findAll = function (result) {
-  mysql.query("Select * from Maintenance_Requests", function (err, res) {
+  mysql.query("select m.request_id, m.user_id ,m.property_id, m.room_id, m.request_text, m.request_status, m.date_created, u.name, u.lastName from Maintenance_Requests m join Users u on m.user_id = u.user_id", function (err, res) {
     if (err) {
       console.log("error: ", err);
       result(null, err);
@@ -21,6 +21,7 @@ MaintenanceRequest.findAll = function (result) {
     }
   });
 };
+
 
 MaintenanceRequest.findById = function (id, result) {
   mysql.query("Select * from Maintenance_Requests where request_id = ? ", id, function (err, res) {
