@@ -17,4 +17,4 @@ router.get("/", maintenanceController.findAll);
 // // Update a maintenance request by ID
 // router.put("/:id", maintenanceController.update);
 
-module.exports = router;
+module.exports = router
