@@ -80,6 +80,7 @@ exports.create = function (req, res) {
       if (err) res.send(err);
       res.json({
         data: post,
+        message: "Post report finished"
       });
     });
   }
