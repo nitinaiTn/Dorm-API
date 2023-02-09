@@ -22,53 +22,53 @@ MaintenanceRequest.findAll = function (result) {
   });
 };
 
-MaintenanceRequest.findById = function (id, result) {
-  mysql.query("Select * from Maintenance_Requests where request_id = ? ", id, function (err, res) {
-    if (err) {
-      console.log("error: ", err);
-      result(err, null);
-    } else {
-      result(null, res);
-    }
-  });
-};
+// MaintenanceRequest.findById = function (id, result) {
+//   mysql.query("Select * from Maintenance_Requests where request_id = ? ", id, function (err, res) {
+//     if (err) {
+//       console.log("error: ", err);
+//       result(err, null);
+//     } else {
+//       result(null, res);
+//     }
+//   });
+// };
 
-MaintenanceRequest.create = function (newRequest, result) {
-  mysql.query("INSERT INTO Maintenance_Requests set ?", newRequest, function (err, res) {
-    if (err) {
-      console.log("error: ", err);
-      result(err, null);
-    } else {
-      console.log(res.insertId);
-      result(null, res.insertId);
-    }
-  });
-};
+// MaintenanceRequest.create = function (newRequest, result) {
+//   mysql.query("INSERT INTO Maintenance_Requests set ?", newRequest, function (err, res) {
+//     if (err) {
+//       console.log("error: ", err);
+//       result(err, null);
+//     } else {
+//       console.log(res.insertId);
+//       result(null, res.insertId);
+//     }
+//   });
+// };
 
-MaintenanceRequest.delete = function (id, result) {
-  mysql.query("DELETE FROM Maintenance_Requests WHERE request_id = ?", [id], function (err, res) {
-    if (err) {
-      console.log("error: ", err);
-      result(null, err);
-    } else {
-      result(null, res);
-    }
-  });
-};
+// MaintenanceRequest.delete = function (id, result) {
+//   mysql.query("DELETE FROM Maintenance_Requests WHERE request_id = ?", [id], function (err, res) {
+//     if (err) {
+//       console.log("error: ", err);
+//       result(null, err);
+//     } else {
+//       result(null, res);
+//     }
+//   });
+// };
 
-MaintenanceRequest.update = function (id, request, result) {
-  mysql.query(
-    "UPDATE Maintenance_Requests SET request_id=?, user_id=?, property_id=?, room_id=?, request_text=?, request_status=?, date_created=? WHERE request_id = ?",
-    [request.request_id, request.user_id, request.property_id, request.room_id, request.request_text, request.request_status, request.date_created, id],
-    function (err, res) {
-      if (err) {
-        console.log("error: ", err);
-        result(null, err);
-      } else {
-        result(null, res);
-      }
-    }
-  );
-};
+// MaintenanceRequest.update = function (id, request, result) {
+//   mysql.query(
+//     "UPDATE Maintenance_Requests SET request_id=?, user_id=?, property_id=?, room_id=?, request_text=?, request_status=?, date_created=? WHERE request_id = ?",
+//     [request.request_id, request.user_id, request.property_id, request.room_id, request.request_text, request.request_status, request.date_created, id],
+//     function (err, res) {
+//       if (err) {
+//         console.log("error: ", err);
+//         result(null, err);
+//       } else {
+//         result(null, res);
+//       }
+//     }
+//   );
+// };
 
 module.exports = MaintenanceRequest;
