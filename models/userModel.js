@@ -7,7 +7,7 @@ let User = function (user) {
 };
 
 User.findAll = function (result) {
-  mysql.query("Select * from Users", function (err, res) {
+  mysql.query("Select * from Users u join Rooms r on u.user_id = r.user_id", function (err, res) {
     if (err) {
       console.log("error: ", err);
       result(null, err);
