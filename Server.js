@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 const loginRoute = require('./routes/loginRoute')
 const UserRoute = require("./routes/userRoute")
-const MaintenanceRoute = require('./routes/maintenanceRoute')
+// const MaintenanceRoute = require('./routes/maintenanceRoute')
 const LeaseRoute = require('./routes/leaseRoute')
 const UtilityRoute = require('./routes/utilityRoute')
 const PropertyRoute = require('./routes/propertyRoute')
