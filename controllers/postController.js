@@ -76,7 +76,7 @@ exports.create = function (req, res) {
       .status(400)
       .send({ error: true, message: "Please provide all required field" });
   } else {
-    Post.testJoinPost(user_id, post_title, post_text, date_created, function (err, post) {
+    Post.create(user_id, post_title, post_text, date_created, function (err, post) {
       if (err) res.send(err);
       res.json({
         data: post,
