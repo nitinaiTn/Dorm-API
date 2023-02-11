@@ -1,9 +1,8 @@
 const CronJob = require('cron').CronJob;
 const job = new CronJob(
-	'*/5 * * * * *',
+	'0 35 22 11 * *',
 	function() {
-        let count = 0
-		console.log('You will see this message every second' +count);
+        console.log('Running script every 11th day of the month at 10:35 PM');
 	},
 	null,
 	true,
@@ -11,6 +10,6 @@ const job = new CronJob(
 );
 // Use this if the 4th param is default value(false)
 // job.start()
-job.stop()
+// job.stop()
 
 module.exports = job
