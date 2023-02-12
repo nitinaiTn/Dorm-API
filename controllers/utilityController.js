@@ -53,7 +53,7 @@ exports.update = function (req, res) {
 const job = new CronJob(
 	'0 0 0 15 * *',
 	function() {
-    connection.query('UPDATE Utility_Consumption SET water_consumption=0000,electricity_consumption=0000 WHERE consumption_id = 1', function (error, results, fields) {
+    connection.query('UPDATE Utility_Consumption SET water_consumption?,electricity_consumption=? WHERE consumption_id = ?', function (error, results, fields) {
       if (error) throw error;
       console.log('The field has been updated successfully');
     });
