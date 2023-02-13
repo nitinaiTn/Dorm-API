@@ -8,6 +8,7 @@ router.get("/", maintenanceController.findAll);
 // Get a single maintenance request by ID
 router.get("/:id", maintenanceController.findById);
 
+router.get("/user/:id", maintenanceController.findbyUserId);
 // Create a new maintenance request
 router.post("/", maintenanceController.create);
 
