@@ -5,7 +5,7 @@ const connection = require("../config/db");
 /* GET home page. */
 router.get("/:property_id", (req, res) => {
     const propertyId = req.params.property_id;
-    console.log(propertyId)
+    res.send(propertyId)
     // connection.query(
     //   `SELECT number_of_floors, number_of_rooms FROM Properties WHERE property_id = ${propertyId}`,
     //   (err, result) => {
