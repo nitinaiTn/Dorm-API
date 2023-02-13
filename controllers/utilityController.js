@@ -1,4 +1,6 @@
 const UtilityConsumption = require("../models/utilityModel")
+const connection = require("../config/db")
+const CronJob = require('cron').CronJob;
 
 exports.findAll = function (req, res) {
   UtilityConsumption.findAll(function (err, utilityConsumption) {
@@ -46,4 +48,18 @@ exports.update = function (req, res) {
         if (err) res.send(err);
         res.json({ message: "Utility consumption successfully updated" });
         });
-        };
+};
+
+const job = new CronJob(
+	'0 0 0 15 * *',
+	function() {
+    connection.query('UPDATE Utility_Consumption SET water_consumption?,electricity_consumption=? WHERE consumption_id = ?', function (error, results, fields) {
+      if (error) throw error;
+      console.log('The field has been updated successfully');
+    });
+  },
+	null,
+	true,
+	'Asia/BangKok'
+);
+// job.start()
