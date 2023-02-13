@@ -58,7 +58,6 @@ exports.create = function (req, res) {
   let post_text = req.body.post_text
   
   
-
   var futureDate = new Date()
   
   
