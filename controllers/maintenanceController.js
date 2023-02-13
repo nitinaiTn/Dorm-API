@@ -1,5 +1,6 @@
 const MaintenanceRequest = require("../models/maintenanceModel")
 
+
 exports.findAll = function (req, res) {
   MaintenanceRequest.findAll(function (err, requests) {
     console.log("controller");
@@ -11,6 +12,12 @@ exports.findAll = function (req, res) {
 
 exports.findById = function (req, res) {
   MaintenanceRequest.findById(req.params.id, function (err, request) {
+    if (err) res.send(err);
+    res.json(request);
+  });
+};
+exports.findbyUserId = function (req, res) {
+  MaintenanceRequest.findbyUserId(req.params.id, function (err, request) {
     if (err) res.send(err);
     res.json(request);
   });
