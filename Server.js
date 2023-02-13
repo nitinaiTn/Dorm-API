@@ -25,6 +25,7 @@ const PropertyRoute = require('./routes/propertyRoute')
 const MaintenanceRoute = require('./routes/maintenanceRoute')
 const PostRoute = require('./routes/postRoute')
 const CommentRoute = require('./routes/commentRoute')
+const RoomsRoute = require('./controllers/roomController')
 
 app.get("/", (req, res) => {
   res.json({
@@ -40,6 +41,7 @@ app.use('/api/property', PropertyRoute)
 app.use('/api/maintenance', MaintenanceRoute)
 app.use('/api/post', PostRoute)
 app.use('/api/comment', CommentRoute)
+app.use('/api/room', RoomsRoute)
 
 app.listen(process.env.PORT || 3000, function() {
   console.log("server listening on port 3000")
