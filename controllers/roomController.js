@@ -3,7 +3,7 @@ const router = express.Router();
 const connection = require("../config/db");
 
 /* GET home page. */
-router.get("/update-rooms", (req, res) => {
+router.get("/:property_id", (req, res) => {
     const propertyId = req.params.property_id;
     console.log(propertyId)
     // connection.query(
