@@ -1,4 +1,7 @@
 const mysql = require('../config/db')
+var futureDate = new Date()
+  futureDate.setTime(futureDate.getTime() + 3600*1000*7);
+  var Stringsdate = futureDate.toISOString().replace(/T/, ' ').replace(/\..+/, '')
 
 let MaintenanceRequest = function (request) {
   this.request_id = request.request_id;
@@ -6,8 +9,8 @@ let MaintenanceRequest = function (request) {
   this.property_id = request.property_id;
   this.room_id = request.room_id;
   this.request_text = request.request_text;
-  this.request_status = request.request_status;
-  this.date_created = request.date_created;
+  this.request_status = "no open";
+  this.date_created = Stringsdate;
 };
 
 MaintenanceRequest.findAll = function (result) {
@@ -25,6 +28,16 @@ MaintenanceRequest.findAll = function (result) {
 
 MaintenanceRequest.findById = function (id, result) {
   mysql.query("Select * from Maintenance_Requests where request_id = ? ", id, function (err, res) {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+    } else {
+      result(null, res);
+    }
+  });
+};
+MaintenanceRequest.findbyUserId= function (id, result) {
+  mysql.query("Select * from Maintenance_Requests where user_id = ? ", id, function (err, res) {
     if (err) {
       console.log("error: ", err);
       result(err, null);
