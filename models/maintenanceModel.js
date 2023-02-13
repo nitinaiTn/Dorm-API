@@ -9,8 +9,8 @@ let MaintenanceRequest = function (request) {
   this.property_id = request.property_id;
   this.room_id = request.room_id;
   this.request_text = request.request_text;
-  this.request_status = "no open";
-  this.date_created = Stringsdate;
+  this.request_status = request.request_status;
+  this.date_created = request.date_created;
 };
 
 MaintenanceRequest.findAll = function (result) {
@@ -47,8 +47,9 @@ MaintenanceRequest.findbyUserId= function (id, result) {
   });
 };
 
-MaintenanceRequest.create = function (newRequest, result) {
-  mysql.query("INSERT INTO Maintenance_Requests set ?", newRequest, function (err, res) {
+MaintenanceRequest.create = function (user_id, property_id, room_id, request_text,request_title,date_created,request_status, result) {
+  console.log(date_created);
+  mysql.query("insert into Maintenance_Requests (user_id, property_id, room_id, request_text,request_title,date_created,request_status) values (?,?,?,?,?,?,?)",[user_id, property_id, room_id, request_text,request_title,date_created,request_status], function (err, res) {
     if (err) {
       console.log("error: ", err);
       result(err, null);
