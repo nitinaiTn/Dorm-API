@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const mysql = require('../config/db')
 
-app.get('/:userId', (req, res) => {
+router.get('/:userId', (req, res) => {
     const userId = req.params.userId;
     const query = `
       SELECT * FROM Bills
