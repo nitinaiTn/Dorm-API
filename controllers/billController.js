@@ -12,6 +12,7 @@ router.get('/:userId', (req, res) => {
     mysql.query(query, (err, results) => {
       if (err) throw err;
       res.json(results);
+      console.log('Succed')
     });
   });
 
