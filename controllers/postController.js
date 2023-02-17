@@ -56,20 +56,20 @@ exports.create = function (req, res) {
   let user_id = req.body.user_id
   let post_title = req.body.post_title
   let post_text = req.body.post_text
-  
-  
+
+
   var futureDate = new Date()
-  
-  
-  futureDate.setTime(futureDate.getTime() + 3600*1000*7);
+
+
+  futureDate.setTime(futureDate.getTime() + 3600 * 1000 * 7);
   var Stringsdate = futureDate.toISOString().replace(/T/, ' ').replace(/\..+/, '')
   console.log(futureDate.toISOString().replace(/T/, ' ').replace(/\..+/, ''))
   console.log(Stringsdate)
   let date_created = Stringsdate
-  
+
   // console.log(stringvalue.toISOString().replace(/,'-'))
-  
-  
+
+
   if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
     res
       .status(400)

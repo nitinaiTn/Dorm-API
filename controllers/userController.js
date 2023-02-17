@@ -11,14 +11,14 @@ const userController = {
     });
   },
 
-  findById: function(req, res) {
+  findById: function (req, res) {
     User.findById(req.params.id, function (err, user) {
       if (err) res.send(err);
       res.json(user);
     });
   },
 
-  create: function(req, res) {
+  create: function (req, res) {
     const new_user = new User(req.body);
     //handles null error
     if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
@@ -35,14 +35,14 @@ const userController = {
     }
   },
 
-  delete: function(req, res) {
+  delete: function (req, res) {
     User.delete(req.params.id, function (err, user) {
       if (err) res.send(err);
       res.json({ message: "User successfully deleted" });
     });
   },
 
-  update: function(req, res) {
+  update: function (req, res) {
     if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
       res
         .status(400)
