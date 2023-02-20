@@ -45,7 +45,7 @@ app.use('/api/comment', CommentRoute)
 app.use('/api/room', RoomsRoute)
 app.use('/api/bill', BillRoute)
 
-app.listen(process.env.PORT || 3000, function() {
+app.listen(process.env.PORT || 3000, function () {
   console.log("server listening on port 3000")
 })
 

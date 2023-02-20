@@ -1,7 +1,7 @@
 const mysql = require('../config/db')
 var futureDate = new Date()
-  futureDate.setTime(futureDate.getTime() + 3600*1000*7);
-  var Stringsdate = futureDate.toISOString().replace(/T/, ' ').replace(/\..+/, '')
+futureDate.setTime(futureDate.getTime() + 3600 * 1000 * 7);
+var Stringsdate = futureDate.toISOString().replace(/T/, ' ').replace(/\..+/, '')
 
 let MaintenanceRequest = function (request) {
   this.request_id = request.request_id;
@@ -36,7 +36,7 @@ MaintenanceRequest.findById = function (id, result) {
     }
   });
 };
-MaintenanceRequest.findbyUserId= function (id, result) {
+MaintenanceRequest.findbyUserId = function (id, result) {
   mysql.query("Select * from Maintenance_Requests where user_id = ? ", id, function (err, res) {
     if (err) {
       console.log("error: ", err);

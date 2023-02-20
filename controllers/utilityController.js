@@ -36,30 +36,29 @@ exports.create = function (req, res) {
 };
 
 exports.delete = function (req, res) {
-  UtilityConsumption.delete(req.params.consumption_id, function (err, utilityConsumption)
-  {
+  UtilityConsumption.delete(req.params.consumption_id, function (err, utilityConsumption) {
     if (err) res.send(err);
     res.json({ message: "Utility consumption successfully deleted" });
-    });
-    };
+  });
+};
 
 exports.update = function (req, res) {
-        UtilityConsumption.update(req.params.consumption_id, new UtilityConsumption(req.body), function (err, utilityConsumption) {
-        if (err) res.send(err);
-        res.json({ message: "Utility consumption successfully updated" });
-        });
+  UtilityConsumption.update(req.params.consumption_id, new UtilityConsumption(req.body), function (err, utilityConsumption) {
+    if (err) res.send(err);
+    res.json({ message: "Utility consumption successfully updated" });
+  });
 };
 
 const job = new CronJob(
-	'0 0 0 15 * *',
-	function() {
+  '0 0 0 15 * *',
+  function () {
     connection.query('UPDATE Utility_Consumption SET water_consumption?,electricity_consumption=? WHERE consumption_id = ?', function (error, results, fields) {
       if (error) throw error;
       console.log('The field has been updated successfully');
     });
   },
-	null,
-	true,
-	'Asia/BangKok'
+  null,
+  true,
+  'Asia/BangKok'
 );
 // job.start()

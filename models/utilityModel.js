@@ -63,14 +63,14 @@ UtilityConsumption.update = function (consumption_id, utilityConsumption, result
     "UPDATE Utility_Consumption SET lease_id=?,user_id=?,property_id=?,room_id=?,month=?,year=?,water_consumption=?,electricity_consumption=? WHERE consumption_id = ?",
     [utilityConsumption.lease_id, utilityConsumption.user_id, utilityConsumption.property_id, utilityConsumption.room_id, utilityConsumption.month, utilityConsumption.year, utilityConsumption.water_consumption, utilityConsumption.electricity_onsumption, consumption_id],
     function (err, res) {
-    if (err) {
-    console.log("error: ", err);
-    result(null, err);
-    } else {
-    result(null, res);
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);
+      } else {
+        result(null, res);
+      }
     }
-    }
-    );
-    };
-    
+  );
+};
+
 module.exports = UtilityConsumption;

@@ -32,15 +32,15 @@ exports.create = function (req, res) {
 };
 
 exports.delete = function (req, res) {
-    Comment.delete(req.params.comment_id, function (err, comment) {
+  Comment.delete(req.params.comment_id, function (err, comment) {
     if (err) res.send(err);
     res.json({ message: "Comment successfully deleted" });
-    });
+  });
 };
-    
+
 exports.update = function (req, res) {
-    Comment.update(req.params.comment_id, new Comment(req.body), function (err, comment) {
+  Comment.update(req.params.comment_id, new Comment(req.body), function (err, comment) {
     if (err) res.send(err);
     res.json({ message: "Comment successfully updated" });
-    });
+  });
 };
