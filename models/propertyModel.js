@@ -6,6 +6,7 @@ let Property = function (property) {
   this.address = property.address;
   this.number_of_floors = property.number_of_floors;
   this.number_of_rooms = property.number_of_rooms;
+  this.user_id = property.user_id;
 };
 
 Property.findAll = function (result) {
@@ -67,6 +68,28 @@ Property.update = function (property_id, property, result) {
         result(null, res);
       }
     });
+};
+
+Property.findRoomAndPropertyAdmin= function ( result) {
+  mysql.query("SELECT * FROM Properties p join Rooms r on p.property_id  = r.property_id ", function (err, res) {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+    } else {
+      result(null, res);
+    }
+  });
+};
+
+Property.findRoomAndPropertyuser= function (user_id, result) {
+  mysql.query("SELECT * FROM Properties p join Rooms r on p.property_id  = r.property_id  WHERE r.user_id  = ? ", user_id, function (err, res) {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+    } else {
+      result(null, res);
+    }
+  });
 };
 
 module.exports = Property;

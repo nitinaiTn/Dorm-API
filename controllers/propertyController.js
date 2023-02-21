@@ -15,6 +15,12 @@ exports.findByOwnerId = function (req, res) {
     res.json(property);
   });
 };
+exports.findRoomAndPropertyuser = function (req, res) {
+  Property.findRoomAndPropertyuser(req.params.owner_id, function (err, property) {
+    if (err) res.send(err);
+    res.json(property);
+  });
+};
 
 exports.create = function (req, res) {
   // const new_property = new Property(req.body);
