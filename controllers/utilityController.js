@@ -11,6 +11,22 @@ exports.findAll = function (req, res) {
   });
 };
 
+exports.utilityConsumptionByUserId = function (req, res) {
+  console.log(req.params.userid);
+  UtilityConsumption.utilityConsumptionByUserId(req.params.userid,function (err, utilityConsumption) {
+    if (err) res.send(err);
+    res.json(utilityConsumption);
+  });
+};
+
+exports.utilityConsumptionAdmin = function (req, res) {
+  UtilityConsumption.utilityConsumptionAdmin(function (err, utilityConsumption) {
+    if (err) res.send(err);
+    console.log("res", utilityConsumption);
+    res.json(utilityConsumption);
+  });
+};
+
 exports.findByLeaseId = function (req, res) {
   UtilityConsumption.findByLeaseId(req.params.lease_id, function (err, utilityConsumption) {
     if (err) res.send(err);

@@ -7,5 +7,6 @@ router.get("/:id", UserController.findById);
 router.post("/", UserController.create)
 router.delete("/:id", UserController.delete);
 router.put('/:id', UserController.update);
+router.put('/email/:id', UserController.updateEmail);
 
 module.exports = router;

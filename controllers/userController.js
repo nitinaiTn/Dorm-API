@@ -1,4 +1,5 @@
 // this code is object literal pattern
+const { updateEmail } = require("../models/userModel");
 const User = require("../models/userModel")
 
 const userController = {
@@ -49,6 +50,19 @@ const userController = {
         .send({ error: true, message: "Please provide all required field" });
     } else {
       User.update(req.params.id, new Employee(req.body), function (err, user) {
+        if (err) res.send(err);
+        res.json({ message: "User successfully updated" });
+      });
+    }
+  },
+
+  updateEmail: function (req, res) {
+    if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
+      res
+        .status(400)
+        .send({ error: true, message: "Please provide all required field" });
+    } else {
+      User.updateEmail(req.params.id, req.body.email, function (err, user) {
         if (err) res.send(err);
         res.json({ message: "User successfully updated" });
       });

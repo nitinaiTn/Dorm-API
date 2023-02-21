@@ -6,11 +6,14 @@ let UtilityConsumption = function (utilityConsumption) {
   this.user_id = utilityConsumption.user_id;
   this.property_id = utilityConsumption.property_id;
   this.room_id = utilityConsumption.room_id;
-  this.month = utilityConsumption.month;
-  this.year = utilityConsumption.year;
   this.water_consumption = utilityConsumption.water_consumption;
   this.electricity_consumption = utilityConsumption.electricity_consumption;
+  this.consumption_date = utilityConsumption.consumption_date;
+  this.sumWater = utilityConsumption.sumWater;
+  this.sumElec = utilityConsumption.sumElec;
 };
+
+
 
 UtilityConsumption.findAll = function (result) {
   mysql.query("Select * from Utility_Consumption", function (err, res) {
@@ -34,6 +37,31 @@ UtilityConsumption.findByLeaseId = function (lease_id, result) {
     }
   });
 };
+
+
+UtilityConsumption.utilityConsumptionAdmin = function (result) {
+  mysql.query("SELECT consumption_date, SUM(water_consumption) AS sumWater, SUM(electricity_consumption) AS sumElec FROM Utility_Consumption WHERE consumption_date <= DATE_SUB(CURDATE(), INTERVAL 6 MONTH)GROUP BY consumption_date", function (err, res) {
+    if (err) {
+      console.log("error: ", err);
+      result(null, err);
+    } else {
+      console.log("Utility Consumption : ", res);
+      result(null, res);
+    }
+  });
+};
+
+UtilityConsumption.utilityConsumptionByUserId = function (userid, result) {
+  mysql.query("SELECT water_consumption,electricity_consumption,consumption_date  FROM  Utility_Consumption uc WHERE uc.user_id  = ?", userid, function (err, res) {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+    } else {
+      result(null, res);
+    }
+  });
+};
+
 
 UtilityConsumption.create = function (newUtilityConsumption, result) {
   mysql.query("INSERT INTO Utility_Consumption set ?", newUtilityConsumption, function (err, res) {

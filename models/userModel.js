@@ -66,5 +66,19 @@ User.update = function (id, user, result) {
     }
   );
 };
+User.updateEmail = function (id, email, result) {
+  mysql.query(
+    "UPDATE Users SET email=? WHERE user_id = ?",
+    [email, id],
+    function (err, res) {
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);
+      } else {
+        result(null, res);
+      }
+    }
+  );
+};
 
 module.exports = User;
