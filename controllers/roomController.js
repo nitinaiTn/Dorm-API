@@ -29,10 +29,16 @@ router.get("/:property_id", (req, res) => {
               const roomId = result.insertId;
               
               console.log(`Room ${roomNumber} on floor ${floorNumber} created with ID ${roomId}`);
+
+              let password = '';
+              const chars = '0123456789';
+              for (let i = 0; i < 4; i++) {
+                password += chars[Math.floor(Math.random() * chars.length)];
+              }
               
               // Insert user record with the room ID
-              const userSql = `INSERT INTO Users (username, room_id, property_id)
-                                VALUES (${floorNumber}+${roomNumber}, ${roomId}, ${propertyId})`;
+              const userSql = `INSERT INTO Users (username, room_id, property_id, role, password)
+                                VALUES ('${roomNumber}ABC', ${roomId}, ${propertyId}, 'user', ${password})`;
               connection.query(userSql, (err, result) => {
                 if (err) throw err;
                 console.log(`User record created for room ${roomNumber} on floor ${floorNumber}`);
