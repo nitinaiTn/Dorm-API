@@ -14,7 +14,7 @@ router.get("/:property_id", (req, res) => {
       } else {
         const numberOfFloors = result[0].number_of_floors;
         const roomsPerFloor = result[0].number_of_rooms;
-        connection.query("TRUNCATE TABLE rooms", (err, result) => {
+        connection.query("TRUNCATE TABLE Rooms", (err, result) => {
           if (err) throw err;
           console.log("Rooms table truncated");
 
