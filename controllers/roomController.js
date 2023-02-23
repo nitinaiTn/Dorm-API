@@ -14,26 +14,32 @@ router.get("/:property_id", (req, res) => {
       } else {
         const numberOfFloors = result[0].number_of_floors;
         const roomsPerFloor = result[0].number_of_rooms;
-        connection.query("TRUNCATE TABLE Rooms", (err, result) => {
-          if (err) throw err;
-          console.log("Rooms table truncated");
-
-          for (let i = 1; i <= numberOfFloors; i++) {
-            for (let j = 1; j <= roomsPerFloor; j++) {
-              const floorNumber = i;
-              const roomNumber = j;
-              const sql = `INSERT INTO Rooms (floor_number, room_number, room_status, property_id)
-                             VALUES (${floorNumber}, ${roomNumber}, 'free', ${propertyId})`;
-              connection.query(sql, (err, result) => {
+        for (let i = 1; i <= numberOfFloors; i++) {
+          for (let j = 1; j <= roomsPerFloor; j++) {
+            const floorNumber = i;
+            const roomNumber = j;
+            
+            // Insert room record
+            const roomSql = `INSERT INTO Rooms (floor_number, room_number, room_status, property_id)
+                              VALUES (${floorNumber}, ${roomNumber}, 'free', ${propertyId})`;
+            connection.query(roomSql, (err, result) => {
+              if (err) throw err;
+              
+              // Get the ID of the newly inserted room
+              const roomId = result.insertId;
+              
+              console.log(`Room ${roomNumber} on floor ${floorNumber} created with ID ${roomId}`);
+              
+              // Insert user record with the room ID
+              const userSql = `INSERT INTO Users (username, room_id, property_id)
+                                VALUES (${floorNumber}+${roomNumber}, ${roomId}, ${propertyId})`;
+              connection.query(userSql, (err, result) => {
                 if (err) throw err;
-                console.log(`Room ${roomNumber} on floor ${floorNumber} created`);
+                console.log(`User record created for room ${roomNumber} on floor ${floorNumber}`);
               });
-            }
+            });
           }
-          res.send(
-            `Rooms updated: ${numberOfFloors} floors, ${roomsPerFloor} rooms per floor`
-          );
-        });
+        }
       }
     }
   );
