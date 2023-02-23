@@ -16,4 +16,18 @@ router.get('/:userId', (req, res) => {
   });
 });
 
+router.get('/', (req, res) => {
+  const userId = req.params.userId;
+  const query = `
+      SELECT * FROM Bills
+      WHERE user_id = ${userId} 
+    `;
+
+  mysql.query(query, (err, results) => {
+    if (err) throw err;
+    res.json(results);
+    console.log('Succed')
+  });
+});
+
 module.exports = router
