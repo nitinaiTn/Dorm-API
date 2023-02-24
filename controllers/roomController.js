@@ -3,6 +3,22 @@ const router = express.Router();
 const connection = require("../config/db");
 
 /* GET home page. */
+router.get('/:propertyId', (req, res) => {
+  const propertyId = req.params.propertyId;
+  const query = 'SELECT * FROM Rooms WHERE property_id = ?';
+
+  connection.query(query, [propertyId], (err, rows) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Error fetching rooms');
+    } else {
+      res.json(rows);
+    }
+  });
+});
+
+
+
 router.post("/:property_id", (req, res) => {
   const propertyId = req.params.property_id;
   connection.query(
@@ -33,7 +49,7 @@ router.post("/:property_id", (req, res) => {
               let password = '';
               const chars = '0123456789';
               for (let i = 0; i < 4; i++) {
-                password += chars[Math.floor(Math.random() * chars.length)];
+                password += chars[Math.floor(Math.random()  * 9000 + 1000)];
               }
               
               // Insert user record with the room ID
