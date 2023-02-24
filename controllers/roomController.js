@@ -49,7 +49,7 @@ router.post("/:property_id", (req, res) => {
               let password = '';
               const chars = '0123456789';
               for (let i = 0; i < 4; i++) {
-                password += chars[Math.floor(Math.random()  * 9000 + 1000)];
+                password += chars[Math.floor(Math.random()  * (9999 - 1000 + 1))+1000];
               }
               
               // Insert user record with the room ID
