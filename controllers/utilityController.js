@@ -58,8 +58,25 @@ exports.delete = function (req, res) {
   });
 };
 
+
+
 exports.update = function (req, res) {
   UtilityConsumption.update(req.params.consumption_id, new UtilityConsumption(req.body), function (err, utilityConsumption) {
+    if (err) res.send(err);
+    res.json({ message: "Utility consumption successfully updated" });
+  });
+};
+
+exports.updateWater_consumtion = function (req, res) {
+  UtilityConsumption.updateWater_consumtion(req.params.room_id,req.body.water_meterdial_Current,function (err) {
+    if (err) res.send(err);
+    res.json({ message: "Utility consumption successfully updated" });
+  });
+};
+
+
+exports.updateElect_consumtion = function (req, res) {
+  UtilityConsumption.updateElect_consumtion(req.params.room_id,req.body.elect_meterdial_Current, function (err, utilityConsumption) {
     if (err) res.send(err);
     res.json({ message: "Utility consumption successfully updated" });
   });

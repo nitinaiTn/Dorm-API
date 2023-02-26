@@ -13,7 +13,9 @@ let UtilityConsumption = function (utilityConsumption) {
   this.sumElec = utilityConsumption.sumElec;
 };
 
-
+var futureDate = new Date()
+futureDate.setTime(futureDate.getTime() + 3600 * 1000 * 7);
+var Stringsdate = futureDate.toISOString().replace(/T/, ' ').replace(/\..+/, '')
 
 UtilityConsumption.findAll = function (result) {
   mysql.query("Select * from Utility_Consumption", function (err, res) {
@@ -40,7 +42,7 @@ UtilityConsumption.findByLeaseId = function (lease_id, result) {
 
 
 UtilityConsumption.utilityConsumptionAdmin = function (result) {
-  mysql.query("SELECT consumption_date, SUM(water_consumption) AS sumWater, SUM(electricity_consumption) AS sumElec FROM Utility_Consumption WHERE consumption_date <= DATE_SUB(CURDATE(), INTERVAL 6 MONTH)GROUP BY consumption_date", function (err, res) {
+  mysql.query("SELECT consumption_date, SUM(water_consumption) AS sumWater, SUM(electricity_consumption) AS sumElec FROM Utility_Consumption WHERE consumption_date BETWEEN DATE_SUB(NOW(), INTERVAL 6 MONTH) AND NOW() GROUP BY consumption_date", function (err, res) {
     if (err) {
       console.log("error: ", err);
       result(null, err);
@@ -99,6 +101,52 @@ UtilityConsumption.update = function (consumption_id, utilityConsumption, result
       }
     }
   );
+};
+
+
+UtilityConsumption.updateWater_consumtion = function (room_id,water_consumptions,results) {
+  mysql.query(
+    "SELECT * from Utility_Consumption uc WHERE uc.consumption_date BETWEEN DATE_SUB(NOW(), INTERVAL 1 MONTH) AND NOW() and uc.room_id = ?",
+    room_id,
+    function (err,result) {
+      if (err) {
+        console.log("error: ", err);
+        results(err, null);
+      } else {
+       console.log(result[0].water_meterdial_Current);
+        water_consumptions = result[0].water_meterdial_Current - water_consumptions; 
+        mysql.query(
+          "UPDATE Utility_Consumption SET lease_id=?,user_id=?,property_id=?,room_id=?,consumption_date=?,water_consumption=? WHERE consumption_id = ?",
+          [ result[0].lease_id,result[0].user_id, result[0].property_id, result[0].room_id,result[0].consumption_date ,water_consumptions, result[0].consumption_id],
+        );
+        results(null, result);
+      }
+    }
+  );
+};
+
+
+UtilityConsumption.updateElect_consumtion = function (room_id,Elect_consumptions,results) {
+
+  mysql.query(
+    "SELECT * from Utility_Consumption uc WHERE uc.consumption_date BETWEEN DATE_SUB(NOW(), INTERVAL 1 MONTH) AND NOW() and uc.room_id = ?",
+    room_id,
+    function (err,result) {
+      if (err) {
+        console.log("error: ", err);
+        results(err, null);
+      } else {
+       console.log(result[0].water_meterdial_Current);
+       Elect_consumptions = result[0].elect_meterdial_Current - Elect_consumptions; 
+        mysql.query(
+          "UPDATE Utility_Consumption SET lease_id=?,user_id=?,property_id=?,room_id=?,consumption_date=?,electricity_consumption=? WHERE consumption_id = ?",
+          [ result[0].lease_id,result[0].user_id, result[0].property_id, result[0].room_id,result[0].consumption_date ,Elect_consumptions, result[0].consumption_id],
+        );
+        results(null, result);
+      }
+    }
+  );
+
 };
 
 module.exports = UtilityConsumption;
