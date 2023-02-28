@@ -114,10 +114,10 @@ UtilityConsumption.updateWater_consumtion = function (room_id,water_consumptions
         results(err, null);
       } else {
        console.log(result[0].water_meterdial_Current);
-        water_consumptions = result[0].water_meterdial_Current - water_consumptions; 
+       const resultwater_consumptions = result[0].water_meterdial_Current - water_consumptions; 
         mysql.query(
-          "UPDATE Utility_Consumption SET lease_id=?,user_id=?,property_id=?,room_id=?,consumption_date=?,water_consumption=? WHERE consumption_id = ?",
-          [ result[0].lease_id,result[0].user_id, result[0].property_id, result[0].room_id,result[0].consumption_date ,water_consumptions, result[0].consumption_id],
+          "UPDATE Utility_Consumption SET lease_id=?,user_id=?,property_id=?,room_id=?,consumption_date=?,water_consumption=?,water_meterdial_Current=? WHERE consumption_id = ?",
+          [ result[0].lease_id,result[0].user_id, result[0].property_id, result[0].room_id,result[0].consumption_date ,resultwater_consumptions,water_consumptions, result[0].consumption_id],
         );
         results(null, result);
       }
@@ -137,10 +137,10 @@ UtilityConsumption.updateElect_consumtion = function (room_id,Elect_consumptions
         results(err, null);
       } else {
        console.log(result[0].water_meterdial_Current);
-       Elect_consumptions = result[0].elect_meterdial_Current - Elect_consumptions; 
+       const resultElect_consumptions = result[0].elect_meterdial_Current - Elect_consumptions; 
         mysql.query(
-          "UPDATE Utility_Consumption SET lease_id=?,user_id=?,property_id=?,room_id=?,consumption_date=?,electricity_consumption=? WHERE consumption_id = ?",
-          [ result[0].lease_id,result[0].user_id, result[0].property_id, result[0].room_id,result[0].consumption_date ,Elect_consumptions, result[0].consumption_id],
+          "UPDATE Utility_Consumption SET lease_id=?,user_id=?,property_id=?,room_id=?,consumption_date=?,electricity_consumption=? ,elect_meterdial_Current=? WHERE consumption_id = ?",
+          [ result[0].lease_id,result[0].user_id, result[0].property_id, result[0].room_id,result[0].consumption_date ,resultElect_consumptions, Elect_consumptions,result[0].consumption_id],
         );
         results(null, result);
       }
