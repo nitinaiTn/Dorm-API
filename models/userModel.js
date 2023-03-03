@@ -19,7 +19,7 @@ User.findAll = function (result) {
 };
 
 User.findById = function (id, result) {
-  mysql.query("Select * from Users u join Rooms r on u.room_id = r.room_id and  u.user_id = ? ", id, function (err, res) {
+  mysql.query("Select * from Users u join Rooms r on u.room_id = r.room_id JOIN Properties p on p.property_id = u.property_id and  u.user_id = ? ", id, function (err, res) {
     if (err) {
       console.log("error: ", err);
       result(err, null);
