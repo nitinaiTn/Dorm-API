@@ -5,6 +5,7 @@ const utilityConsumptionController = require('../controllers/utilityController')
 
 router.get('/:lease_id', utilityConsumptionController.findByLeaseId)
 router.get('/user/:userid', utilityConsumptionController.utilityConsumptionByUserId)
+router.get('/property/:propertyid', utilityConsumptionController.utilityConsumptionByPropertyid)
 router.get('/', utilityConsumptionController.utilityConsumptionAdmin)
 router.post('/water/:room_id', utilityConsumptionController.updateWater_consumtion)
 router.post('/elect/:room_id', utilityConsumptionController.updateElect_consumtion)

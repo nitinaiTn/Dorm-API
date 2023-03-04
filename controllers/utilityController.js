@@ -13,7 +13,7 @@ exports.findAll = function (req, res) {
 
 exports.utilityConsumptionByUserId = function (req, res) {
   console.log(req.params.userid);
-  UtilityConsumption.utilityConsumptionByUserId(req.params.userid,function (err, utilityConsumption) {
+  UtilityConsumption.utilityConsumptionByUserId(req.params.userid, function (err, utilityConsumption) {
     if (err) res.send(err);
     res.json(utilityConsumption);
   });
@@ -21,6 +21,14 @@ exports.utilityConsumptionByUserId = function (req, res) {
 
 exports.utilityConsumptionAdmin = function (req, res) {
   UtilityConsumption.utilityConsumptionAdmin(function (err, utilityConsumption) {
+    if (err) res.send(err);
+    console.log("res", utilityConsumption);
+    res.json(utilityConsumption);
+  });
+};
+
+exports.utilityConsumptionByPropertyid  = function (req, res) {
+  UtilityConsumption.utilityConsumptionByPropertyid (req.params.propertyid,function (err, utilityConsumption) {
     if (err) res.send(err);
     console.log("res", utilityConsumption);
     res.json(utilityConsumption);
@@ -68,17 +76,22 @@ exports.update = function (req, res) {
 };
 
 exports.updateWater_consumtion = function (req, res) {
-  UtilityConsumption.updateWater_consumtion(req.params.room_id,req.body.water_meterdial_Current,function (err) {
+  UtilityConsumption.updateWater_consumtion(req.params.room_id, req.body.water_meterdial_Current, function (err,results) {
     if (err) res.send(err);
-    res.json({ message: "Utility consumption successfully updated" });
+    res.json({
+      user: results[0],
+      message: "Utility consumption successfully updated"
+    });
   });
 };
 
 
 exports.updateElect_consumtion = function (req, res) {
-  UtilityConsumption.updateElect_consumtion(req.params.room_id,req.body.elect_meterdial_Current, function (err, utilityConsumption) {
+  UtilityConsumption.updateElect_consumtion(req.params.room_id, req.body.elect_meterdial_Current, function (err, results) {
     if (err) res.send(err);
-    res.json({ message: "Utility consumption successfully updated" });
+    res.json({ 
+      user: results[0],
+      message: "Utility consumption successfully updated" });
   });
 };
 

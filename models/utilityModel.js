@@ -64,6 +64,17 @@ UtilityConsumption.utilityConsumptionByUserId = function (userid, result) {
   });
 };
 
+UtilityConsumption.utilityConsumptionByPropertyid = function (propertyid, result) {
+  mysql.query("SELECT * from Utility_Consumption uc WHERE uc.consumption_date BETWEEN DATE_SUB(NOW(), INTERVAL 1 MONTH) AND NOW() AND  uc.property_id = ?", propertyid, function (err, res) {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+    } else {
+      result(null, res);
+    }
+  });
+};
+
 
 UtilityConsumption.create = function (newUtilityConsumption, result) {
   mysql.query("INSERT INTO Utility_Consumption set ?", newUtilityConsumption, function (err, res) {
@@ -213,7 +224,7 @@ UtilityConsumption.updateElect_consumtion = function (room_id, Elect_consumption
             [result[0].lease_id, result[0].user_id, result[0].property_id, result[0].room_id, result[0].consumption_date, resultElect_consumptions, Elect_consumptions, result[0].consumption_id],
           );
         }
-        results(null, result);
+        result(null, result);
       }
     }
   );
