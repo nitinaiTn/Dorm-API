@@ -13,6 +13,7 @@ let UtilityConsumption = function (utilityConsumption) {
   this.sumElec = utilityConsumption.sumElec;
 };
 
+
 var futureDate = new Date()
 futureDate.setTime(futureDate.getTime() + 3600 * 1000 * 7);
 var Stringsdate = futureDate.toISOString().replace(/T/, ' ').replace(/\..+/, '')
@@ -117,6 +118,7 @@ UtilityConsumption.update = function (consumption_id, utilityConsumption, result
 
 UtilityConsumption.updateWater_consumtion = function (room_id, water_consumptions, results) {
   var resultwater_consumptions;
+  var check_update = false;
   mysql.query(
     "SELECT * from Utility_Consumption uc WHERE uc.consumption_date BETWEEN DATE_SUB(NOW(), INTERVAL 2 MONTH) AND NOW() and uc.room_id = ?",
     room_id,
@@ -128,16 +130,23 @@ UtilityConsumption.updateWater_consumtion = function (room_id, water_consumption
 
         if (result[1] != null) {
           console.log("เข้าไม่");
-          if(result[1].water_meterdial_Current = 4){
+          if(water_consumptions.length == 4){
             console.log("เข้า4");
-            if(result[1].water_meterdial_Current>=parseInt(water_consumptions)){
-              resultwater_consumptions = 9999 - result[0].water_meterdial_Current + parseInt(water_consumptions);
+            check_update = true;
+            if(result[0].water_meterdial_Current>=parseInt(water_consumptions)){
+              console.log(resultwater_consumptions);
+              console.log(result[0].water_meterdial_Current);
+              console.log(water_consumptions);
+             
+              resultwater_consumptions = 10000 - result[0].water_meterdial_Current + parseInt(water_consumptions);
+              console.log(resultwater_consumptions);
             }
             else{
               console.log("ปกติ1");
               resultwater_consumptions = water_consumptions - result[0].water_meterdial_Current;
             }
-          }else if (result[1].water_meterdial_Current.length = 7){
+          }else if (water_consumptions.length == 7){
+            check_update = true;
             console.log("เข้าเคส7");
             if(result[1].water_meterdial_Current>=parseInt(water_consumptions)){
               console.log("เข้า999999");
@@ -147,19 +156,16 @@ UtilityConsumption.updateWater_consumtion = function (room_id, water_consumption
               console.log("ปกติ2");
               resultwater_consumptions = water_consumptions - result[0].water_meterdial_Current;
             }
-          }else{
-            console.log("อันอื่น");
-            resultwater_consumptions = result[0].water_meterdial_Current;
+          }
+          if(check_update){
+            mysql.query(
+              "UPDATE Utility_Consumption SET lease_id=?,user_id=?,property_id=?,room_id=?,consumption_date=?,water_consumption=?,water_meterdial_Current=? WHERE consumption_id = ?",
+              [result[1].lease_id, result[1].user_id, result[1].property_id, result[1].room_id, result[1].consumption_date, resultwater_consumptions, water_consumptions, result[1].consumption_id],
+            );
           }
           
-          resultwater_consumptions = water_consumptions - result[0].water_meterdial_Current;
-          mysql.query(
-            "UPDATE Utility_Consumption SET lease_id=?,user_id=?,property_id=?,room_id=?,consumption_date=?,water_consumption=?,water_meterdial_Current=? WHERE consumption_id = ?",
-            [result[1].lease_id, result[1].user_id, result[1].property_id, result[1].room_id, result[1].consumption_date, resultwater_consumptions, water_consumptions, result[1].consumption_id],
-          );
-        }else{
-
           
+        }else{    
           mysql.query(
             "UPDATE Utility_Consumption SET lease_id=?,user_id=?,property_id=?,room_id=?,consumption_date=?,water_consumption=?,water_meterdial_Current=? WHERE consumption_id = ?",
             [result[0].lease_id, result[0].user_id, result[0].property_id, result[0].room_id, result[0].consumption_date, resultwater_consumptions, water_consumptions, result[0].consumption_id],
@@ -174,57 +180,60 @@ UtilityConsumption.updateWater_consumtion = function (room_id, water_consumption
 
 UtilityConsumption.updateElect_consumtion = function (room_id, Elect_consumptions, results) {
  var resultElect_consumptions;
+ var check_update = false;
   mysql.query(
     "SELECT * from Utility_Consumption uc WHERE uc.consumption_date BETWEEN DATE_SUB(NOW(), INTERVAL 2 MONTH) AND NOW() and uc.room_id = ?",
     room_id,
     function (err, result) {
       if (err) {
-
+        console.log("error: ", err);
         results(err, null);
       } else {
+
         if (result[1] != null) {
           console.log("เข้าไม่");
-          if(result[1].elect_meterdial_Current.length = 4){
+          if(Elect_consumptions.length == 4){
             console.log("เข้า4");
-            if(result[1].elect_meterdial_Current>=parseInt(Elect_consumptions)){
-              
-              resultElect_consumptions = 9999 - result[0].elect_meterdial_Current + parseInt(Elect_consumptions);
-              
+            check_update = true;
+            if(result[0].elect_meterdial_Current>=parseInt(Elect_consumptions)){
+              console.log(resultElect_consumptions);
+              console.log(result[0].elect_meterdial_Current);
+              console.log(Elect_consumptions);
+             
+              resultElect_consumptions = 10000 - result[0].elect_meterdial_Current + parseInt(Elect_consumptions);
               console.log(resultElect_consumptions);
             }
             else{
               console.log("ปกติ1");
               resultElect_consumptions = Elect_consumptions - result[0].elect_meterdial_Current;
-              console.log(resultElect_consumptions);
             }
-          }else if (result[1].elect_meterdial_Current.length = 7){
+          }else if (Elect_consumptions.length == 7){
+            check_update = true;
             console.log("เข้าเคส7");
             if(result[1].elect_meterdial_Current>=parseInt(Elect_consumptions)){
               console.log("เข้า999999");
-              resultElect_consumptions = 9999999 - result[0].elect_meterdial_Current + Elect_consumptions;
+              resultElect_consumptions = 10000000 - result[0].elect_meterdial_Current + parseInt(Elect_consumptions);
             }
             else{
-              console.log("เข้าปกติ2");
+              console.log("ปกติ2");
               resultElect_consumptions = Elect_consumptions - result[0].elect_meterdial_Current;
             }
-          }else{
-            console.log("อันอื่น");
-            resultElect_consumptions = result[0].elect_meterdial_Current;
+          }
+          if(check_update){
+            mysql.query(
+              "UPDATE Utility_Consumption SET lease_id=?,user_id=?,property_id=?,room_id=?,consumption_date=?,electricity_consumption=?,elect_meterdial_Current=? WHERE consumption_id = ?",
+              [result[1].lease_id, result[1].user_id, result[1].property_id, result[1].room_id, result[1].consumption_date, resultElect_consumptions, Elect_consumptions, result[1].consumption_id],
+            );
           }
           
+          
+        }else{    
           mysql.query(
-            "UPDATE Utility_Consumption SET lease_id=?,user_id=?,property_id=?,room_id=?,consumption_date=?,electricity_consumption=? ,elect_meterdial_Current=? WHERE consumption_id = ?",
-            [result[1].lease_id, result[1].user_id, result[1].property_id, result[1].room_id, result[1].consumption_date, resultElect_consumptions, Elect_consumptions, result[1].consumption_id],
-          );
-        } else {
-          console.log("เข้า");
-          const resultElect_consumptions = result[0].elect_meterdial_Current - result[0].elect_meterdial_Current;
-          mysql.query(
-            "UPDATE Utility_Consumption SET lease_id=?,user_id=?,property_id=?,room_id=?,consumption_date=?,electricity_consumption=? ,elect_meterdial_Current=? WHERE consumption_id = ?",
+            "UPDATE Utility_Consumption SET lease_id=?,user_id=?,property_id=?,room_id=?,consumption_date=?,electricity_consumption=?,elect_meterdial_Current=? WHERE consumption_id = ?",
             [result[0].lease_id, result[0].user_id, result[0].property_id, result[0].room_id, result[0].consumption_date, resultElect_consumptions, Elect_consumptions, result[0].consumption_id],
           );
         }
-        result(null, result);
+        results(null, result);
       }
     }
   );
