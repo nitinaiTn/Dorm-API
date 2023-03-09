@@ -69,8 +69,9 @@ router.post("/:property_id", (req, res) => {
           // Collect user data to be inserted in an array
           const userData = [];
           for (let i = 0; i < roomIds.length; i++) {
+            const floorNumber = data[i][0];
             const roomNumber = data[i][1];
-            const username = `${roomNumber}ABC`;
+            const username = `Room${floorNumber}${roomNumber}`;
             const roomId = roomIds[i];
             const password = passwords[i];
             userData.push([username, roomId, propertyId, 'user', password]);
