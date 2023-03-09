@@ -17,8 +17,6 @@ router.get('/:propertyId', (req, res) => {
   });
 });
 
-
-
 router.post("/:property_id", (req, res) => {
   const propertyId = req.params.property_id;
   connection.query(
@@ -30,38 +28,67 @@ router.post("/:property_id", (req, res) => {
       } else {
         const numberOfFloors = result[0].number_of_floors;
         const roomsPerFloor = result[0].number_of_rooms;
+        
+        // Collect all data to be inserted in an array
+        const data = [];
         for (let i = 1; i <= numberOfFloors; i++) {
           for (let j = 1; j <= roomsPerFloor; j++) {
             const floorNumber = i;
             const roomNumber = j;
-            
-            // Insert room record
-            const roomSql = `INSERT INTO Rooms (floor_number, room_number, room_status, property_id)
-                              VALUES (${floorNumber}, ${roomNumber}, 'free', ${propertyId})`;
-            connection.query(roomSql, (err, result) => {
-              if (err) throw err;
-              
-              // Get the ID of the newly inserted room
-              const roomId = result.insertId;
-              
-              console.log(`Room ${roomNumber} on floor ${floorNumber} created with ID ${roomId}`);
-
-              let password = '';
-              const chars = '0123456789';
-              for (let i = 0; i < 4; i++) {
-                password += chars[Math.floor(Math.random()  * (9999 - 1000 + 1))+1000];
-              }
-              
-              // Insert user record with the room ID
-              const userSql = `INSERT INTO Users (username, room_id, property_id, role, password)
-                                VALUES ('${roomNumber}ABC', ${roomId}, ${propertyId}, 'user', ${password})`;
-              connection.query(userSql, (err, result) => {
-                if (err) throw err;
-                console.log(`User record created for room ${roomNumber} on floor ${floorNumber}`);
-              });
-            });
+            data.push([floorNumber, roomNumber, 'free', propertyId]);
           }
         }
+
+        // Construct the SQL query with placeholders for the data
+        const roomSql = `INSERT INTO Rooms (floor_number, room_number, room_status, property_id)
+                          VALUES ?`;
+        
+        // Execute the batch insert query
+        connection.query(roomSql, [data], (err, result) => {
+          if (err) throw err;
+
+          // Get the IDs of the newly inserted rooms
+          const roomIds = [];
+          for (let i = 0; i < result.affectedRows; i++) {
+            roomIds.push(result.insertId + i);
+          }
+
+          console.log(`Inserted ${result.affectedRows} room records`);
+          
+          // Generate passwords for each user
+          const passwords = [];
+          for (let i = 0; i < roomIds.length; i++) {
+            let password = '';
+            const chars = '0123456789';
+            for (let j = 0; j < 4; j++) {
+              password += chars[Math.floor(Math.random() * chars.length)];
+            }
+            passwords.push(password);
+          }
+
+          // Collect user data to be inserted in an array
+          const userData = [];
+          for (let i = 0; i < roomIds.length; i++) {
+            const roomNumber = data[i][1];
+            const username = `${roomNumber}ABC`;
+            const roomId = roomIds[i];
+            const password = passwords[i];
+            userData.push([username, roomId, propertyId, 'user', password]);
+          }
+
+          // Construct the SQL query with placeholders for the user data
+          const userSql = `INSERT INTO Users (username, room_id, property_id, role, password)
+                            VALUES ?`;
+
+          // Execute the batch insert query
+          connection.query(userSql, [userData], (err, result) => {
+            if (err) throw err;
+            
+            console.log(`Inserted ${result.affectedRows} user records`);
+
+            res.send('Rooms and users created successfully');
+          });
+        });
       }
     }
   );
