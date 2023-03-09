@@ -43,7 +43,7 @@ UtilityConsumption.findByLeaseId = function (lease_id, result) {
 
 
 UtilityConsumption.utilityConsumptionAdmin = function (result) {
-  mysql.query("SELECT consumption_date, SUM(water_consumption) AS sumWater, SUM(electricity_consumption) AS sumElec FROM Utility_Consumption WHERE consumption_date BETWEEN DATE_SUB(NOW(), INTERVAL 6 MONTH) AND NOW() GROUP BY consumption_date", function (err, res) {
+  mysql.query("SELECT consumption_date, CAST(SUM(water_consumption) AS SIGNED) AS sumWater, CAST(SUM(electricity_consumption)AS SIGNED) AS sumElec FROM Utility_Consumption WHERE consumption_date BETWEEN DATE_SUB(NOW(), INTERVAL 6 MONTH) AND NOW() GROUP BY consumption_date", function (err, res) {
     if (err) {
       console.log("error: ", err);
       result(null, err);
@@ -191,6 +191,7 @@ UtilityConsumption.updateElect_consumtion = function (room_id, Elect_consumption
       } else {
 
         if (result[1] != null) {
+
           console.log("เข้าไม่");
           if(Elect_consumptions.length == 4){
             console.log("เข้า4");
