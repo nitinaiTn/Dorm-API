@@ -1,41 +1,48 @@
 const nodemailer = require('nodemailer');
 const cron = require('cron');
 
-// async function sendEmail() {
-//   const transporter = nodemailer.createTransport({
-//     host: 'smtp.example.com',
-//     port: 587,
-//     secure: false,
-//     auth: {
-//       user: 'you@example.com',
-//       pass: 'password'
-//     }
-//   });
-
-//   const today = new Date();
-//   if (today.getDate() === 25) {
-//     const mailOptions = {
-//       from: 'you@example.com',
-//       to: 'recipient@example.com',
-//       subject: 'Daily Email',
-//       text: 'This is a daily email sent on the 25th day of the month.'
-//     };
-
-//     try {
-//       const info = await transporter.sendMail(mailOptions);
-//       console.log(`Email sent: ${info.response}`);
-//     } catch (error) {
-//       console.error(error);
-//     }
+// const transporter = nodemailer.createTransport({
+//   service: 'gmail',
+//   auth: {
+//     user: 'your_email@gmail.com',
+//     pass: 'your_email_password'
 //   }
-// }
-
-// const cronJob = new cron.CronJob({
-//   cronTime: '0 0 * * 25',
-//   onTick: sendEmail,
-//   timeZone: 'Asia/Bangkok'
 // });
 
-// cronJob.start();
+// async function getEmailRecipients() {
+//   const connection = await mysql.createConnection({
+//     host: 'localhost',
+//     user: 'your_database_username',
+//     password: 'your_database_password',
+//     database: 'your_database_name'
+//   });
+
+//   const [rows, fields] = await connection.execute('SELECT email FROM recipients');
+//   return rows.map(row => row.email);
+// }
+
+// async function sendEmails() {
+//   const recipients = await getEmailRecipients();
+
+//   const mailOptions = {
+//     from: 'your_email@gmail.com',
+//     to: recipients,
+//     subject: 'Test Email',
+//     text: 'Hello World!'
+//   };
+
+//   transporter.sendMail(mailOptions, function(error, info){
+//     if (error) {
+//       console.log(error);
+//     } else {
+//       console.log('Email sent: ' + info.response);
+//     }
+//   });
+// }
+
+// // Schedule a cron job to execute the sendEmails function every day at 12:00:00 PM on the 15th of the month
+// cron.schedule('0 12 15 * *', function() {
+//   sendEmails();
+// });
 
 // module.exports = cronJob
