@@ -38,4 +38,4 @@ const db = require('../config/db')
   //   });
   // }, null, true, 'Asia/Bangkok');
 
-  module.exports = task;
+  // module.exports = task;
