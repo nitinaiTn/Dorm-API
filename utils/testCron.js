@@ -1,7 +1,7 @@
 const CronJob = require('cron').CronJob;
 const db = require('../config/db')
 
-const task = new CronJob('0 0 20 15 * *', function () {
+const task = new CronJob('40 21 15 * *', function () {
   // Query the database
   console.log('Running cron job...');
   db.query('SELECT p.number_of_floors, p.number_of_rooms, p.property_id, u.user_id, r.room_id FROM Properties p INNER JOIN Rooms r ON p.property_id = r.property_id INNER JOIN Users u ON r.room_id = u.room_id', function (error, results, fields) {
