@@ -2,7 +2,7 @@ const express = require("express")
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const mysql = require('./config/db')
-const emailSend = require('./utils/sendEmailScript')
+const taskEmail = require('./utils/sendEmailScript')
 // const task = require('./utils/testCron')
 const cloudinary = require('./config/cloudianary')
 // Configuration 
@@ -52,6 +52,7 @@ app.use('/api/comment', CommentRoute)
 app.use('/api/room', RoomsRoute)
 app.use('/api/bill', BillRoute)
 
+// taskEmail.start()
 // task.start()
 
 app.listen(process.env.PORT || 3000, function () {

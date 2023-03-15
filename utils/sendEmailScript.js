@@ -1,48 +1,43 @@
 const nodemailer = require('nodemailer');
-const cron = require('cron');
+const CronJob = require('cron').CronJob;
+const db = require('../config/db')
+require('dotenv').config()
 
-// const transporter = nodemailer.createTransport({
-//   service: 'gmail',
-//   auth: {
-//     user: 'your_email@gmail.com',
-//     pass: 'your_email_password'
-//   }
-// });
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.email_sender,
+    pass: process.env.password_sender
+  }
+});
 
-// async function getEmailRecipients() {
-//   const connection = await mysql.createConnection({
-//     host: 'localhost',
-//     user: 'your_database_username',
-//     password: 'your_database_password',
-//     database: 'your_database_name'
-//   });
+async function getEmailRecipients() {
+  const [rows, fields] = await db.promise().query('SELECT email FROM Users WHERE email IS NOT NULL');
+  return rows.map(row => row.email);
+}
 
-//   const [rows, fields] = await connection.execute('SELECT email FROM recipients');
-//   return rows.map(row => row.email);
-// }
+async function sendEmails() {
+  const recipients = await getEmailRecipients();
 
-// async function sendEmails() {
-//   const recipients = await getEmailRecipients();
+  const mailOptions = {
+    from: process.env.email_sender,
+    to: recipients,
+    subject: 'Test Email From NodeMailer',
+    text: 'Hello World!'
+  };
 
-//   const mailOptions = {
-//     from: 'your_email@gmail.com',
-//     to: recipients,
-//     subject: 'Test Email',
-//     text: 'Hello World!'
-//   };
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  });
+}
 
-//   transporter.sendMail(mailOptions, function(error, info){
-//     if (error) {
-//       console.log(error);
-//     } else {
-//       console.log('Email sent: ' + info.response);
-//     }
-//   });
-// }
+const taskEmail = new CronJob('55 22 15 * *', function () {
+    console.log('run send email script')
+    sendEmails();
+});
 
-// // Schedule a cron job to execute the sendEmails function every day at 12:00:00 PM on the 15th of the month
-// cron.schedule('0 12 15 * *', function() {
-//   sendEmails();
-// });
-
-// module.exports = cronJob
+module.exports = taskEmail
