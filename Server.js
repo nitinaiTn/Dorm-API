@@ -3,8 +3,14 @@ const cors = require('cors')
 const bodyParser = require('body-parser')
 const mysql = require('./config/db')
 const emailSend = require('./utils/sendEmailScript')
-
+const cloudinary = require('./config/cloudianary')
+// Configuration 
+const fileUpload = require("express-fileupload");
 const app = express()
+app.use(fileUpload({
+  useTempFiles: true,
+  limits:{fileSize:50*2024*1024}
+}))
 
 app.use(cors({
   origin: "*",
@@ -48,6 +54,10 @@ app.use('/api/bill', BillRoute)
 app.listen(process.env.PORT || 3000, function () {
   console.log("server listening on port 3000")
 })
+
+// app.listen(8000,'192.168.226.217'|| 3000,function() {
+//   console.log("server listening on port 3000")
+// })
 
 // Export the Express API
 module.exports = app;

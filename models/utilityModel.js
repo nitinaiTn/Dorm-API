@@ -116,7 +116,7 @@ UtilityConsumption.update = function (consumption_id, utilityConsumption, result
 };
 
 
-UtilityConsumption.updateWater_consumtion = function (room_id, water_consumptions, results) {
+UtilityConsumption.updateWater_consumtion = function (room_id, water_consumptions,imageURL,results) {
   var resultwater_consumptions;
   var check_update = false;
   mysql.query(
@@ -159,8 +159,8 @@ UtilityConsumption.updateWater_consumtion = function (room_id, water_consumption
           }
           if(check_update){
             mysql.query(
-              "UPDATE Utility_Consumption SET lease_id=?,user_id=?,property_id=?,room_id=?,consumption_date=?,water_consumption=?,water_meterdial_Current=? WHERE consumption_id = ?",
-              [result[1].lease_id, result[1].user_id, result[1].property_id, result[1].room_id, result[1].consumption_date, resultwater_consumptions, water_consumptions, result[1].consumption_id],
+              "UPDATE Utility_Consumption SET lease_id=?,user_id=?,property_id=?,room_id=?,consumption_date=?,water_consumption=?,water_meterdial_Current=? ,imageURL_water=? WHERE consumption_id = ?",
+              [result[1].lease_id, result[1].user_id, result[1].property_id, result[1].room_id, result[1].consumption_date, resultwater_consumptions, water_consumptions, imageURL, result[1].consumption_id],
             );
           }
           
@@ -194,7 +194,8 @@ UtilityConsumption.updateElect_consumtion = function (room_id, Elect_consumption
 
           console.log("เข้าไม่");
           if(Elect_consumptions.length == 4){
-            console.log("เข้า4");
+          
+            console.log("เข้า4หลัก");
             check_update = true;
             if(result[0].elect_meterdial_Current>=parseInt(Elect_consumptions)){
               console.log(resultElect_consumptions);

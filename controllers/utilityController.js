@@ -1,6 +1,11 @@
 const UtilityConsumption = require("../models/utilityModel")
-const connection = require("../config/db")
+const connection = require("../config/db");
+const cloudinary = require("../config/cloudianary");
+const { resource } = require("../Server");
 const CronJob = require('cron').CronJob;
+const fileUpload = require("express-fileupload");
+// Configuration 
+
 
 exports.findAll = function (req, res) {
   UtilityConsumption.findAll(function (err, utilityConsumption) {
@@ -75,11 +80,17 @@ exports.update = function (req, res) {
   });
 };
 
-exports.updateWater_consumtion = function (req, res) {
-  UtilityConsumption.updateWater_consumtion(req.params.room_id, req.body.water_meterdial_Current, function (err,results) {
+exports.updateWater_consumtion = async function (req, res) {
+  const file = req.files.image;
+  const resultss  = await cloudinary.uploader.upload(file.tempFilePath,{
+    public_id: Date.now(),
+    resource_type:"auto",
+    folder: "Dorm"
+  })
+  UtilityConsumption.updateWater_consumtion(req.params.room_id, req.body.water_meterdial_Current,resultss.url, function (err,results) {
     if (err) res.send(err);
     res.json({
-      user: results[0],
+      url : resultss.url,
       message: "Utility consumption successfully updated"
     });
   });
@@ -107,4 +118,37 @@ const job = new CronJob(
   true,
   'Asia/BangKok'
 );
+
+const jobs = new CronJob(
+  '0 0 0 15 * *',
+  function () {
+    connection.query('select p.number_of_floors ,p.number_of_rooms ,p.property_id  FROM Properties p ', function (error, result, fields) {
+      if (error) throw error;
+      else{
+        let index = result.length-1;
+        for(let x = 0; x < index; x++){
+        const numberOfFloors = result[x].number_of_floors;
+        const roomsPerFloor = result[x].number_of_rooms;
+        
+        // Collect all data to be inserted in an array
+        const data = [];
+        for (let i = 1; i <= numberOfFloors; i++) {
+          for (let j = 1; j <= roomsPerFloor; j++) {
+            const floorNumber = i;
+            const roomNumber = j;
+            data.push([floorNumber, roomNumber, 'free', propertyId]);
+          }
+        }
+        }
+        
+      }
+      
+
+    });
+  },
+  null,
+  true,
+  'Asia/BangKok'
+);
+
 // job.start()
