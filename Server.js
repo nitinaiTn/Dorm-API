@@ -3,7 +3,7 @@ const cors = require('cors')
 const bodyParser = require('body-parser')
 const mysql = require('./config/db')
 const emailSend = require('./utils/sendEmailScript')
-const task = require('./utils/testCron')
+// const task = require('./utils/testCron')
 const cloudinary = require('./config/cloudianary')
 // Configuration 
 const fileUpload = require("express-fileupload");
@@ -52,7 +52,7 @@ app.use('/api/comment', CommentRoute)
 app.use('/api/room', RoomsRoute)
 app.use('/api/bill', BillRoute)
 
-task.start()
+// task.start()
 
 app.listen(process.env.PORT || 3000, function () {
   console.log("server listening on port 3000")

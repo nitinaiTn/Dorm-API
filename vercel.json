@@ -11,5 +11,11 @@
         "src": "/(.*)",
         "dest": "Server.js"
       }
+    ],
+    "crons": [
+      {
+        "path": "/utils/cron",
+        "schedule": "0 0 22 15 * *"
+      }
     ]
   }
