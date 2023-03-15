@@ -82,7 +82,7 @@ exports.update = function (req, res) {
 
 exports.updateWater_consumtion = async function (req, res) {
   const file = req.files.image;
-  const resultss  = await cloudinary.uploader.upload(file.tempFilePath,{
+  const  resultss  = await cloudinary.uploader.upload(file.tempFilePath,{
     public_id: Date.now(),
     resource_type:"auto",
     folder: "Dorm"
@@ -97,11 +97,17 @@ exports.updateWater_consumtion = async function (req, res) {
 };
 
 
-exports.updateElect_consumtion = function (req, res) {
-  UtilityConsumption.updateElect_consumtion(req.params.room_id, req.body.elect_meterdial_Current, function (err, results) {
+exports.updateElect_consumtion = async function (req, res) {
+  const file = req.files.image;
+  const resultzz  = await cloudinary.uploader.upload(file.tempFilePath,{
+    public_id: Date.now(),
+    resource_type:"auto",
+    folder: "Dorm"
+  })
+  UtilityConsumption.updateElect_consumtion(req.params.room_id, req.body.elect_meterdial_Current,resultzz.url, function (err, results) {
     if (err) res.send(err);
     res.json({ 
-      user: results[0],
+      url : resultzz.url,
       message: "Utility consumption successfully updated" });
   });
 };
@@ -136,9 +142,10 @@ const jobs = new CronJob(
           for (let j = 1; j <= roomsPerFloor; j++) {
             const floorNumber = i;
             const roomNumber = j;
-            data.push([floorNumber, roomNumber, 'free', propertyId]);
+            data.push([floorNumber, roomNumber, 'free', result[x].property_id]);
           }
         }
+
         }
         
       }
