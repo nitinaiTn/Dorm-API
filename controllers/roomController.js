@@ -5,13 +5,18 @@ const connection = require("../config/db");
 /* GET home page. */
 router.get('/:propertyId', (req, res) => {
   const propertyId = req.params.propertyId;
-  const query = 'SELECT * FROM Rooms WHERE property_id = ?';
+  const query = 'SELECT uc.user_id,uc.consumption_date  ,r.room_id ,r.room_number ,r.room_status ,uc.water_consumption,uc.electricity_consumption,uc.water_meterdial_Current ,uc.elect_meterdial_Current  FROM Rooms r join  Utility_Consumption uc on r.room_id = uc.room_id AND uc.property_id =? WHERE uc.consumption_date BETWEEN ADDDATE(LAST_DAY(DATE_SUB(NOW(),INTERVAL 2 MONTH)), INTERVAL 1 DAY) AND DATE_SUB(NOW(),INTERVAL 1 MONTH)'
 
   connection.query(query, [propertyId], (err, rows) => {
-    if (err) {
+    if (err) throw err;
       console.error(err);
-      res.status(500).send('Error fetching rooms');
-    } else {
+      if (rows.length === 0) {
+      connection.query('SELECT uc.user_id,uc.consumption_date  ,r.room_id ,r.room_number ,r.room_status ,uc.water_consumption,uc.electricity_consumption,uc.water_meterdial_Current ,uc.elect_meterdial_Current  FROM Rooms r join  Utility_Consumption uc on r.room_id = uc.room_id AND uc.property_id = ? WHERE uc.consumption_date BETWEEN DATE_SUB(NOW(), INTERVAL 1 MONTH) AND NOW()', [propertyId], (err, rows1) => {
+        if (err) throw err;
+        res.json(rows1);
+      });
+      }
+     else {
       res.json(rows);
     }
   });
