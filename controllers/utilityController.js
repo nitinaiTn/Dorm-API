@@ -99,15 +99,15 @@ exports.updateWater_consumtion = async function (req, res) {
 
 exports.updateElect_consumtion = async function (req, res) {
   const file = req.files.image;
-  const resultzz  = await cloudinary.uploader.upload(file.tempFilePath,{
+  const resultss  = await cloudinary.uploader.upload(file.tempFilePath,{
     public_id: Date.now(),
     resource_type:"auto",
     folder: "Dorm"
   })
-  UtilityConsumption.updateElect_consumtion(req.params.room_id, req.body.elect_meterdial_Current,resultzz.url, function (err, results) {
+  UtilityConsumption.updateElect_consumtion(req.params.room_id, req.body.elect_meterdial_Current,resultss.url, function (err, results) {
     if (err) res.send(err);
     res.json({ 
-      url : resultzz.url,
+      url : resultss.url,
       message: "Utility consumption successfully updated" });
   });
 };
