@@ -35,8 +35,8 @@ Property.findByOwnerId = function (owner_id, result) {
   });
 };
 
-Property.create = function (owner_id, address, number_of_floors, number_of_rooms, result) {
-  mysql.query("insert into Properties (owner_id, address, number_of_floors, number_of_rooms) values (?,?,?,?)", [owner_id, address, number_of_floors, number_of_rooms]
+Property.create = function (owner_id, address, number_of_floors, number_of_rooms, meter_state,Unit_bath_water, Unit_bath_elect, result) {
+  mysql.query("insert into Properties (owner_id, address, number_of_floors, number_of_rooms, meter_state, Unit_bath_water, Unit_bath_elect) values (?,?,?,?,?,?,?)", [owner_id, address, number_of_floors, number_of_rooms, meter_state,Unit_bath_water, Unit_bath_elect]
     , function (err, res) {
       if (err) {
         console.log("error: ", err);
