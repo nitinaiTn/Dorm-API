@@ -86,4 +86,19 @@ MaintenanceRequest.update = function (id, request, result) {
   );
 };
 
+MaintenanceRequest.updateStatus = function (id, status, result) {
+  mysql.query(
+    "UPDATE Maintenance_Requests SET request_status=? WHERE request_id = ?",
+    [status, id],
+    function (err, res) {
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);
+      } else {
+        result(null, res);
+      }
+    }
+  );
+};
+
 module.exports = MaintenanceRequest;

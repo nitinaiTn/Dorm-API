@@ -62,3 +62,11 @@ exports.update = function (req, res) {
     res.json({ message: "Maintenance Request successfully updated" });
   });
 };
+
+
+exports.updateStatus = function (req, res) {
+  MaintenanceRequest.updateStatus(req.params.id,req.body.status, function (err, request) {
+    if (err) res.send(err);
+    res.json({ message: "Maintenance Request successfully updated" });
+  });
+};

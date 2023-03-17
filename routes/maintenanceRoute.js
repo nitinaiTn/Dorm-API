@@ -18,4 +18,6 @@ router.delete("/:id", maintenanceController.delete);
 // Update a maintenance request by ID
 router.put("/:id", maintenanceController.update);
 
+router.put("/updateStatus/:id", maintenanceController.updateStatus);
+
 module.exports = router
