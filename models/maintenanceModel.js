@@ -14,7 +14,7 @@ let MaintenanceRequest = function (request) {
 };
 
 MaintenanceRequest.findAll = function (result) {
-  mysql.query("select m.request_id, m.user_id ,m.property_id, r.room_number ,m.room_id, m.request_text, m.request_status, m.date_created, m.request_title,u.name, u.lastName from Maintenance_Requests m join Users u on m.user_id = u.user_id JOIN Rooms r on r.room_id = m.room_id ", function (err, res) {
+  mysql.query("select m.request_id, m.user_id ,m.property_id, r.room_number ,m.room_id, m.request_text, m.request_status, m.date_created, m.request_title,u.name, u.lastName, m.imageURL from Maintenance_Requests m join Users u on m.user_id = u.user_id JOIN Rooms r on r.room_id = m.room_id ", function (err, res) {
     if (err) {
       console.log("error: ", err);
       result(null, err);
