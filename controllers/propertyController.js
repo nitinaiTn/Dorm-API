@@ -28,14 +28,17 @@ exports.create = function (req, res) {
   let address = req.body.address
   let number_of_floors = req.body.number_of_floors
   let number_of_rooms = req.body.number_of_rooms
-
+  let meter_state = req.body.meter_state
+  let Unit_bath_water = req.body.Unit_bath_water
+  let Unit_bath_elect = req.body.Unit_bath_elect
+  
   //handles null error
   if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
     res
       .status(400)
       .send({ error: true, message: "Please provide all required field" });
   } else {
-    Property.create(owner_id, address, number_of_floors, number_of_rooms, function (err, property) {
+    Property.create(owner_id, address, number_of_floors, number_of_rooms, meter_state,Unit_bath_water, Unit_bath_elect, function (err, property) {
       if (err) res.send(err);
       res.json({
         data: property,
