@@ -47,9 +47,9 @@ MaintenanceRequest.findbyUserId = function (id, result) {
   });
 };
 
-MaintenanceRequest.create = function (user_id, property_id, room_id, request_text,request_title,date_created,request_status, imageURLS, result ) {
+MaintenanceRequest.create = function (user_id, property_id, room_id, request_text,request_title,date_created,request_status, result ) {
   console.log(date_created);
-  mysql.query("insert into Maintenance_Requests (user_id, property_id, room_id, request_text,request_title,date_created,request_status,imageURL) values (?,?,?,?,?,?,?,?)",[user_id, property_id, room_id, request_text,request_title,date_created,request_status,imageURLS], function (err, res) {
+  mysql.query("insert into Maintenance_Requests (user_id, property_id, room_id, request_text,request_title,date_created,request_status) values (?,?,?,?,?,?,?)",[user_id, property_id, room_id, request_text,request_title,date_created,request_status], function (err, res) {
     if (err) {
       console.log("error: ", err);
       result(err, null);

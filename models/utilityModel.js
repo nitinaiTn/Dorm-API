@@ -116,7 +116,7 @@ UtilityConsumption.update = function (consumption_id, utilityConsumption, result
 };
 
 
-UtilityConsumption.updateWater_consumtion = function (room_id, water_consumptions,imageURL,results) {
+UtilityConsumption.updateWater_consumtion = function (room_id, water_consumptions,results) {
   var resultwater_consumptions;
   var check_update = false;
   mysql.query(
@@ -159,8 +159,8 @@ UtilityConsumption.updateWater_consumtion = function (room_id, water_consumption
           }
           if(check_update){
             mysql.query(
-              "UPDATE Utility_Consumption SET lease_id=?,user_id=?,property_id=?,room_id=?,consumption_date=?,water_consumption=?,water_meterdial_Current=? ,imageURL_water=? WHERE consumption_id = ?",
-              [result[1].lease_id, result[1].user_id, result[1].property_id, result[1].room_id, Stringsdate, resultwater_consumptions, water_consumptions, imageURL, result[1].consumption_id],
+              "UPDATE Utility_Consumption SET lease_id=?,user_id=?,property_id=?,room_id=?,consumption_date=?,water_consumption=?,water_meterdial_Current=?  WHERE consumption_id = ?",
+              [result[1].lease_id, result[1].user_id, result[1].property_id, result[1].room_id, result[1].consumption_date, resultwater_consumptions, water_consumptions,  result[1].consumption_id],
             );
           }
           
@@ -178,7 +178,7 @@ UtilityConsumption.updateWater_consumtion = function (room_id, water_consumption
 };
 
 
-UtilityConsumption.updateElect_consumtion = function (room_id, Elect_consumptions,imageURL, results) {
+UtilityConsumption.updateElect_consumtion = function (room_id, Elect_consumptions, results) {
  var resultElect_consumptions;
  var check_update = false;
   mysql.query(
@@ -223,8 +223,8 @@ UtilityConsumption.updateElect_consumtion = function (room_id, Elect_consumption
           }
           if(check_update){
             mysql.query(
-              "UPDATE Utility_Consumption SET lease_id=?,user_id=?,property_id=?,room_id=?,consumption_date=?,electricity_consumption=?,elect_meterdial_Current=? imageURL_elect=?,WHERE consumption_id = ?",
-              [result[1].lease_id, result[1].user_id, result[1].property_id, result[1].room_id, Stringsdate, resultElect_consumptions, Elect_consumptions, imageURL,result[1].consumption_id],
+              "UPDATE Utility_Consumption SET lease_id=?,user_id=?,property_id=?,room_id=?,consumption_date=?,electricity_consumption=?,elect_meterdial_Current=? ,WHERE consumption_id = ?",
+              [result[1].lease_id, result[1].user_id, result[1].property_id, result[1].room_id, result[1].consumption_date, resultElect_consumptions, Elect_consumptions,result[1].consumption_id],
             );
           }
           

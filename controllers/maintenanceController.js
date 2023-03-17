@@ -24,13 +24,7 @@ exports.findbyUserId = function (req, res) {
   });
 };
 
-exports.create =  async function (req, res) {
-  const file = req.files.image;
-  const  resultss  = await cloudinary.uploader.upload(file.tempFilePath,{
-    public_id: Date.now(),
-    resource_type:"auto",
-    folder: "Dorm"
-  })
+exports.create =   function (req, res) {
   
   let user_id = req.body.user_id
   let property_id= req.body.property_id
@@ -45,7 +39,7 @@ exports.create =  async function (req, res) {
   let date_created = Stringsdate
   //handles null error
  
-    MaintenanceRequest.create(user_id, property_id, room_id, request_text,request_title,date_created,request_status, resultss.url , function (err, request) {
+    MaintenanceRequest.create(user_id, property_id, room_id, request_text,request_title,date_created,request_status , function (err, request) {
       if (err) res.send(err);
       res.json({
         url: resultss.url ,

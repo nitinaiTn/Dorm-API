@@ -80,34 +80,41 @@ exports.update = function (req, res) {
   });
 };
 
-exports.updateWater_consumtion = async function (req, res) {
-  const file = req.files.image;
-  const  resultss  = await cloudinary.uploader.upload(file.tempFilePath,{
-    public_id: Date.now(),
-    resource_type:"auto",
-    folder: "Dorm"
-  })
-  UtilityConsumption.updateWater_consumtion(req.params.room_id, req.body.water_meterdial_Current,resultss.url, function (err,results) {
+exports.updateWater_consumtion =  function (req, res) {
+  // const file = req.files.image;
+  // const  resultss  = await cloudinary.uploader.upload(file.tempFilePath,{
+  //   public_id: Date.now(),
+  //   resource_type:"auto",
+  //   folder: "Dorm"
+  // })
+  
+  UtilityConsumption.updateWater_consumtion(req.params.room_id, req.body.water_meterdial_Current, function (err,results) {
     if (err) res.send(err);
     res.json({
-      url : resultss.url,
+      
       message: "Utility consumption successfully updated"
     });
   });
 };
 
 
-exports.updateElect_consumtion = async function (req, res) {
-  const file = req.files.image;
-  const resultss  = await cloudinary.uploader.upload(file.tempFilePath,{
-    public_id: Date.now(),
-    resource_type:"auto",
-    folder: "Dorm"
-  })
-  UtilityConsumption.updateElect_consumtion(req.params.room_id, req.body.elect_meterdial_Current,resultss.url, function (err, results) {
+exports.updateElect_consumtion =  function (req, res) {
+//   const file = req.files.image;
+//   let url = "no image";
+//   if(file===null){url = "no image"}
+//   else{resultss  = await cloudinary.uploader.upload(file.tempFilePath,{
+//     public_id: Date.now(),
+//     resource_type:"auto",
+//     folder: "Dorm"
+//   })
+//   url = resultss.url
+// }
+ 
+  
+  UtilityConsumption.updateElect_consumtion(req.params.room_id, req.body.elect_meterdial_Current, function (err, results) {
     if (err) res.send(err);
     res.json({ 
-      url : resultss.url,
+      
       message: "Utility consumption successfully updated" });
   });
 };
