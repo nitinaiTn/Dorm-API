@@ -42,7 +42,7 @@ exports.create =   function (req, res) {
     MaintenanceRequest.create(user_id, property_id, room_id, request_text,request_title,date_created,request_status , function (err, request) {
       if (err) res.send(err);
       res.json({
-        url: resultss.url ,
+        
         data: request,
       });
     });
