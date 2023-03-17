@@ -6,6 +6,9 @@ let Property = function (property) {
   this.address = property.address;
   this.number_of_floors = property.number_of_floors;
   this.number_of_rooms = property.number_of_rooms;
+  this.meter_state = property.meter_state;
+  this.Unit_bath_water = property.Unit_bath_water;
+  this.Unit_bath_elect = property.Unit_bath_elect;
   this.user_id = property.user_id;
 };
 
@@ -57,8 +60,8 @@ Property.delete = function (property_id, result) {
 };
 
 Property.update = function (property_id, property, result) {
-  mysql.query("update Properties set owner_id=?,address=?,number_of_floors=?,number_of_rooms=? where property_id = ?",
-    [property.owner_id, property.address, property.number_of_floors, property.number_of_rooms, property_id],
+  mysql.query("update Properties set owner_id=?,address=?,number_of_floors=?,number_of_rooms=?, meter_state=?,Unit_bath_water=?, Unit_bath_elect=?  where property_id = ?",
+    [property.owner_id, property.address, property.number_of_floors, property.number_of_rooms, property.meter_state, property.Unit_bath_water, property.Unit_bath_elect, property_id],
     function (err, res) {
       if (err) {
         console.log("error: ", err);
