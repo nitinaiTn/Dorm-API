@@ -223,7 +223,7 @@ UtilityConsumption.updateElect_consumtion = function (room_id, Elect_consumption
           }
           if(check_update){
             mysql.query(
-              "UPDATE Utility_Consumption SET lease_id=?,user_id=?,property_id=?,room_id=?,consumption_date=?,electricity_consumption=?,elect_meterdial_Current=? ,WHERE consumption_id = ?",
+              "UPDATE Utility_Consumption SET lease_id=?,user_id=?,property_id=?,room_id=?,consumption_date=?,electricity_consumption=?,elect_meterdial_Current=? WHERE consumption_id = ?",
               [result[1].lease_id, result[1].user_id, result[1].property_id, result[1].room_id, result[1].consumption_date, resultElect_consumptions, Elect_consumptions,result[1].consumption_id],
             );
           }
